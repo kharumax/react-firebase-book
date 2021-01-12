@@ -1,8 +1,6 @@
 
 # react-book
 
-## Facebookを参考に作成
-
 ### Atomic Designを利用
 ### Redux-Toolkit & Firebase
 ### フォルダ構成

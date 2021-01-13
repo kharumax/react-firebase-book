@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6ae2dd01-4170-4719-92ae-8e9bea6ddc7d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="6ae2dd01-4170-4719-92ae-8e9bea6ddc7d" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +18,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1lQVXF7PMkrJboGRETO4L2KrK93" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -40,7 +37,7 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
@@ -76,7 +73,7 @@
       <workItem from="1607610284143" duration="151000" />
       <workItem from="1608911247927" duration="990000" />
       <workItem from="1609232861940" duration="4000" />
-      <workItem from="1610460354092" duration="236000" />
+      <workItem from="1610460354092" duration="1110000" />
     </task>
     <servers />
   </component>
@@ -108,10 +105,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1419" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607586912868" />
-    <state x="236" y="-901" key="SettingsEditor" timestamp="1607529654762">
+    <state x="705" y="-989" key="SettingsEditor" timestamp="1610460878445">
       <screen x="-233" y="-1080" width="1920" height="1080" />
     </state>
-    <state x="236" y="-901" key="SettingsEditor/0.0.1440.900/-233.-1080.1920.1080@-233.-1080.1920.1080" timestamp="1607529654762" />
+    <state x="705" y="-989" key="SettingsEditor/0.0.1440.900/-233.-1080.1920.1080@-233.-1080.1920.1080" timestamp="1610460878445" />
     <state x="450" y="369" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1607586318331">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

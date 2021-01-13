@@ -1,7 +1,6 @@
 
 # react-book
 
-### Atomic Designを利用
 ### Redux-Toolkit & Firebase
 ### フォルダ構成
     store
@@ -9,7 +8,7 @@
     utils
      - 定数や拡張関数を記載
     views
-     - atomic design
+     - ui
     styles
      - viewのそれぞれのCSSを定義する
    

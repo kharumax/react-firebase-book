@@ -41,6 +41,10 @@
     <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../react-firebase-twitter/src/images" />
+      <recent name="$PROJECT_DIR$/../react-firebase-twitter/public" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/styles" />
     </key>
@@ -73,7 +77,7 @@
       <workItem from="1607610284143" duration="151000" />
       <workItem from="1608911247927" duration="990000" />
       <workItem from="1609232861940" duration="4000" />
-      <workItem from="1610460354092" duration="2216000" />
+      <workItem from="1610460354092" duration="7226000" />
     </task>
     <servers />
   </component>

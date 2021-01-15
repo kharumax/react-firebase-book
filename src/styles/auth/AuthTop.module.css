@@ -1,0 +1,54 @@
+
+html {
+    overflow: hidden;
+}
+
+body {
+    overflow: hidden;
+}
+
+.AuthTopBody {
+    height: 100%;
+    background-color: #192834;
+}
+
+.AuthTopContainer {
+    width: 100%;
+    height: 92%;
+    display: flex;
+}
+
+.AuthTopLeftContainer {
+    flex: 1;
+    height: 100%;
+}
+.AuthTopLeftImage {
+    width: 50vw;
+    height: 100%;
+}
+
+.AuthTopRightContainer {
+    flex: 1;
+    height: 100%;
+}
+
+.AuthTopBottomContainer {
+    width: 100%;
+    height: 8%;
+    color: lightgray;
+    text-align: center;
+}
+.AuthTopBottomContainerList {
+    height: 50%;
+    display: flex;
+    justify-content: center;
+}
+.AuthTopBottomContainerList p {
+    height: 50%;
+    margin-right: 10px;
+}
+
+.AuthTopBottomContainerCopyright {
+    height: 50%;
+    margin-top: 8px;
+}

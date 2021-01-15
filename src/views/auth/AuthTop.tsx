@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from "../../styles/auth/AuthTop.module.css";
 import LeftContainerIcon from "../../images/left-container.png";
+import TwitterIcon from "../../images/twitter-logo-white.png";
 
 const AuthTop: React.FC = () => {
 
-    document.title = "「いま」起きていることを見つけよう";
+    document.title = "「いま」起きていることを見つけよう / Twitter";
 
     return (
         <div className={styles.AuthTopBody}>
@@ -13,7 +14,17 @@ const AuthTop: React.FC = () => {
                     <img className={styles.AuthTopLeftImage} src={LeftContainerIcon}/>
                 </div>
                 <div className={styles.AuthTopRightContainer}>
-                    Right Container
+                    <div className={styles.AuthTopRightInnerContainer}>
+                        <img src={TwitterIcon}/>
+                        <p>「いま」起きていることを見つけよう</p>
+                        <h3>Twitterを始めよう</h3>
+                        <button className={styles.AuthTopRightSignUpButton}>
+                            アカウント作成
+                        </button>
+                        <button className={styles.AuthTopRightLoginButton}>
+                            ログイン
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className={styles.AuthTopBottomContainer}>

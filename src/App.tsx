@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
-import Top from "./views/Top";
+import Top from "./views/top/Top";
 import AuthTop from "./views/auth/AuthTop";
 
 /** ここで認証済みの場合はTopコンポーネントへ、そうでない場合はAuthTopコンポーネントへ移動する */
 const App = () => {
 
-    const isLogin = false;
+    const isLogin = true;
 
     return (
         <div className="App">

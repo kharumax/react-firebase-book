@@ -1,0 +1,67 @@
+html {
+    overflow: scroll;
+}
+
+body {
+    overflow: scroll;
+}
+
+.TopContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+/* Space Container */
+/* 0% */
+.TopLeftSpaceContainer {
+    height: 100%;
+    width: 7%;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    left: 0;
+}
+
+/*  7% */
+.TopLeftContainer {
+    height: 100%;
+    width: 18%;
+    background-color: red;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    left: 7%;
+}
+
+/* 25% */
+.TopCenterContainer {
+    overflow: auto;
+    width: 40%;
+    background-color: #1DA2F1;
+}
+.TopCenterContainer::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* 65% */
+.TopRightContainer {
+    height: 100%;
+    width: 25%;
+    background-color: lightgray;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    left: 65%;
+}
+
+/* 90% */
+.TopRightSpaceContainer {
+    height: 100%;
+    width: 10%;
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+    left: 90%;
+}

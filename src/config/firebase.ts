@@ -18,3 +18,8 @@ const firebaseApp = firebase.initializeApp(firebaseConfig);
 export const db = firebaseApp.firestore();
 export const auth = firebase.auth();
 export const storage = firebase.storage();
+
+export const usersRef = db.collection("users");
+export const userRef = (uid: string) => {
+    return  usersRef.doc(uid)
+};

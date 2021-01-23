@@ -99,7 +99,7 @@ body {
 .TopPostTweetButton {
     display: block;
     width: 80%;
-    margin-bottom: 128px;
+    margin-bottom: 54px;
     height: 56px;
     font-size: 20px;
     font-weight: bold;
@@ -113,6 +113,26 @@ body {
     border-width: 0;
     margin-left: 32px;
 }
+
+.TopLogoutButton {
+    display: block;
+    width: 80%;
+    height: 56px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 32px;
+    cursor: pointer;
+    outline: none;
+    color: #1DA2F1;
+    background-color: transparent;
+    border-color: white;
+    border-width: 1px;
+    margin-left: 32px;
+    margin-bottom: 32px;
+}
+
 
 .TopProfileContainer {
     margin-left: 32px;

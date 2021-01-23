@@ -16,11 +16,9 @@ const Login: React.FC = () => {
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
-    const login = async () => {
-        console.log("login is clicked");
-        console.log(`Email is ${email}`);
-        console.log(`Password is ${password}`);
-        await auth.signInWithEmailAndPassword(email,password)
+    const handleLogin = async () => {
+        await auth.signInWithEmailAndPassword(email,password);
+        window.location.href = "/"
     };
 
     return (
@@ -34,7 +32,7 @@ const Login: React.FC = () => {
                 <input type="password" required minLength={6} placeholder="パスワード" className={styles.LoginPasswordInput}
                         value={password} onChange={handlePassword}
                 />
-                <button type="submit" className={styles.LoginConfirmButton} onClick={login}>
+                <button type="submit" className={styles.LoginConfirmButton} onClick={handleLogin}>
                     ログイン
                 </button>
                 <a href="/signup" className={styles.ToSignUpLink}>

@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectUser,fetchCurrentUser} from "../../store/slices/userSlice";
 import {fetchUser} from "../../data/repository/userRepository";
 import LoadingPage from "../LoadingPage";
-import { Switch,Route } from "react-router-dom";
+import { Switch,Route,NavLink } from "react-router-dom";
 import {auth} from "../../config/firebase";
 import Home from "../home/Home";
 import Explore from "../explore/Explore";
@@ -48,24 +48,26 @@ const Top: React.FC = () => {
 
                     </div>
                     <div className={styles.TopLeftContainer}>
-                        <img src={TwitterIcon} alt="TwitterIcon" className={styles.TopTwitterIcon}/>
+                        <NavLink to="/home">
+                            <img src={TwitterIcon} alt="TwitterIcon" className={styles.TopTwitterIcon}/>
+                        </NavLink>
                         <div className={styles.TopSideBarContainer}>
-                            <button className={styles.TopSideBarItem}>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/home">
                                 <img src={HomeSideBarIcon} alt="HomeIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle} style={{paddingTop: "16px"}}>Home</p>
-                            </button>
-                            <button className={styles.TopSideBarItem}>
+                            </NavLink>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/explore">
                                 <img src={ExploreSideBarIcon} alt="ExploreIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Explore</p>
-                            </button>
-                            <button className={styles.TopSideBarItem}>
+                            </NavLink>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/messages">
                                 <img src={MessageSideBarIcon} alt="MessagesIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Messages</p>
-                            </button>
-                            <button className={styles.TopSideBarItem}>
+                            </NavLink>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/profile">
                                 <img src={ProfileSideBarIcon} alt="ProfileIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Profile</p>
-                            </button>
+                            </NavLink>
                         </div>
                         <button className={styles.TopLogoutButton} onClick={handleLogout}>
                             ログアウト

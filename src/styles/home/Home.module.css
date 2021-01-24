@@ -1,0 +1,19 @@
+.HomeContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.HomeTitle {
+    color: white;
+    padding-left: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #383838;
+}
+
+.HomeTweetInputContainer {
+
+}
+
+.HomeFeedContainer {
+
+}

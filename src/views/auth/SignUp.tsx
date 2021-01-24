@@ -1,18 +1,20 @@
 import React, {useState} from 'react';
 import styles from "../../styles/auth/SignUp.module.css";
 import TwitterIcon from "../../images/twitter-logo-white.png";
-import { Credential } from "../../data/repository/userRepository";
+import {Credential, signUpUser} from "../../data/repository/userRepository";
 
 const SignUp:React.FC = () => {
 
     document.title = "Twitterに登録 / Twitter";
 
-    const [credential,setCredential] = useState<Credential>({
+    const initialCredential: Credential = {
         fullname: "",
         username: "",
         email: "",
         password: ""
-    });
+    };
+
+    const [credential,setCredential] = useState<Credential>(initialCredential);
 
     const handleCredential = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
@@ -22,8 +24,16 @@ const SignUp:React.FC = () => {
     };
 
     const signUp = () => {
-        console.log(`Credential is ${credential}`);
-        window.location.href = "/";
+        console.log(`signUp is called`);
+        signUpUser(credential).then(result => {
+            window.location.href = "/";
+            console.log(result)
+        })
+        .catch(error => {
+            alert(error);
+            setCredential(initialCredential);
+            console.error(`Error: ${error} at signUp in SignUp.tsx`);
+        });
     };
 
     return (

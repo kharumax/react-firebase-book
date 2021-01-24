@@ -15,24 +15,30 @@ const App: React.FC = () => {
     const [isLoading,setIsLoading] = useState(true);
 
     useEffect(() => {
-        console.log("DEBUG: useEffect is called at App.tsx");
-        auth.onAuthStateChanged(authUser => {
+        const unSub = auth.onAuthStateChanged(authUser => {
+            console.log("DEBUG: unSub is called in App.tsx");
+            // setIsLoading(true);
             if (authUser != null) {
                 dispatch(login(authUser.uid));
-                setIsLoading(false);
+                console.log("DEBUG: login is called in App.tsx");
+                // setIsLoading(false);
             } else {
                 dispatch(logout());
+                console.log("DEBUG: logout is called in App.tsx");
                 setIsLoading(false);
             }
             console.log("DEBUG: setIsLoading(false) is called");
         });
+        return () => {
+            unSub()
+        }
     },[dispatch]);
 
     return (
         <div className="App">
-            { isLoading && (<LoadingPage/>) }
+            { isLoading && !user.isLogin && (<LoadingPage/>) }
             { !isLoading && !user.isLogin && (<AuthTop/>)}
-            { !isLoading && user.isLogin && (<Top/>)}
+            { user.isLogin && (<Top/>)}
         </div>
     );
 };

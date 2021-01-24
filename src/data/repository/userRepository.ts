@@ -1,6 +1,6 @@
-import {auth, userRef, usersRef} from "../../config/firebase";
-import {buildUser} from "../entities/User";
-
+import {auth, defaultImageUrl, userRef, usersRef} from "../../config/firebase";
+import {buildUser, User} from "../entities/User";
+import firebase from "firebase/app";
 
 export interface Credential {
     fullname: string;
@@ -19,9 +19,30 @@ export const fetchUser = async (uid: string) => {
     }
 };
 
+export const loginUser = async (email: string,password: string): Promise<string> => {
+    console.log("DEBUG: loginUser is called");
+    try {
+        const authUser = await auth.signInWithEmailAndPassword(email,password);
+        return Promise.resolve(authUser.user!.uid)
+    } catch (error) {
+        return Promise.reject(error)
+    }
+};
 
-export const signUpUser = async (credential: Credential) => {
-
+export const signUpUser = async (credential: Credential): Promise<string> => {
+    console.log("DEBUG: signUpUser is called");
+    try {
+        const authUser = await auth.createUserWithEmailAndPassword(credential.email, credential.password);
+        console.log(`DEBUG: authUser is success at userRepository`);
+        await userRef(authUser.user!.uid).set({
+            uid: authUser.user!.uid,fullname: credential.fullname,username: credential.username,
+            bio: "",profileImageUrl: defaultImageUrl
+        });
+        console.log(`DEBUG: setUser is success at userRepository`);
+        return Promise.resolve(authUser.user!.uid)
+    } catch (error) {
+        return Promise.reject(error)
+    }
 };
 
 export const fetchUsers = async () => {

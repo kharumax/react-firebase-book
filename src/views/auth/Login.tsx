@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styles from "../../styles/auth/Login.module.css";
 import TwitterIcon from "../../images/twitter-logo-white.png";
 import {auth} from "../../config/firebase";
+import {loginUser} from "../../data/repository/userRepository";
 
 
 const Login: React.FC = () => {
@@ -16,9 +17,22 @@ const Login: React.FC = () => {
     const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(e.target.value);
     };
+    const clearCredential = () => {
+        setEmail("");
+        setPassword("");
+    };
+
     const handleLogin = async () => {
-        await auth.signInWithEmailAndPassword(email,password);
-        window.location.href = "/"
+        loginUser(email,password)
+            .then(result => {
+                console.log(`DEBUG: This is ${result}`);
+                window.location.href = "/"
+            })
+            .catch(error => {
+                console.log(`Error: This is ${error}`);
+                alert(error);
+                clearCredential()
+            })
     };
 
     return (

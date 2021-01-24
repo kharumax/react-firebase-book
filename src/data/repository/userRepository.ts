@@ -1,6 +1,5 @@
 import {auth, defaultImageUrl, userRef, usersRef} from "../../config/firebase";
 import {buildUser, User} from "../entities/User";
-import firebase from "firebase/app";
 
 export interface Credential {
     fullname: string;

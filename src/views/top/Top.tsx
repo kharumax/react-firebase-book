@@ -7,7 +7,7 @@ import MessageSideBarIcon from "../../images/message.png";
 import ProfileSideBarIcon from "../../images/profile.png";
 import ProfileIcon from "../../images/ironman.jpg";
 import {useDispatch, useSelector} from "react-redux";
-import {selectUser,fetchCurrentUser,logout} from "../../store/slices/userSlice";
+import {selectUser,fetchCurrentUser} from "../../store/slices/userSlice";
 import {fetchUser} from "../../data/repository/userRepository";
 import LoadingPage from "../LoadingPage";
 import {auth} from "../../config/firebase";

@@ -82,7 +82,9 @@ const Top: React.FC = () => {
 
                     </div>
                     <div className={styles.TopCenterContainer}>
-
+                        {
+                            <ul>{list}</ul>
+                        }
                     </div>
                     <div className={styles.TopRightContainer}>
 

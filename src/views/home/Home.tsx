@@ -13,7 +13,7 @@ const Home: React.FC = () => {
         <div className={styles.HomeContainer}>
             <h1 className={styles.HomeTitle}>Home</h1>
             <div className={styles.HomeTweetInputContainer}>
-                <TweetInput/>
+                <TweetInput user={currentUser}/>
             </div>
             <div className={styles.HomeFeedContainer}>
 

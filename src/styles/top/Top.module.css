@@ -138,8 +138,9 @@ body {
     text-decoration: none;
     text-align: center;
     border-radius: 32px;
-    cursor: pointer;
+    padding: 0;
     outline: none;
+    cursor: pointer;
     color: #1DA2F1;
     background-color: transparent;
     border-color: white;

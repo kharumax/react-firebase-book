@@ -10,18 +10,20 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectUser,fetchCurrentUser} from "../../store/slices/userSlice";
 import {fetchUser} from "../../data/repository/userRepository";
 import LoadingPage from "../LoadingPage";
-import { Switch,Route,NavLink } from "react-router-dom";
+import { Switch,Route,NavLink,useLocation } from "react-router-dom";
 import {auth} from "../../config/firebase";
 import Home from "../home/Home";
 import Explore from "../explore/Explore";
 import Messages from "../messages/Messages";
 import Profile from "../profile/Profile";
+import {getTitle} from "../../utils/Utils";
 
 const Top: React.FC = () => {
 
     const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
     const [isLoading,setIsLoading] = useState(true);
+    document.title = getTitle(useLocation().pathname);
 
     useEffect(() => {
         //window.location.href = "/home";

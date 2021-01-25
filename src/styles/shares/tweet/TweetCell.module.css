@@ -4,4 +4,30 @@
     display: flex;
 }
 
-.TweetCell
+.TweetCellProfileImage {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+}
+
+.TweetCellContentContainer {
+    width: 80%;
+}
+
+.TweetCellTweetInfo {
+    display: flex;
+}
+
+.TweetCellText {
+
+}
+
+.TweetCellImage {
+    width: 100%;
+    height: 300px;
+    border-radius: 25px;
+}
+
+.TweetCellActionBar {
+    display: flex;
+}

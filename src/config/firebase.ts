@@ -22,5 +22,10 @@ export const defaultImageUrl = process.env.REACT_APP_DEFAULT_PERSON_IMAGE;
 
 export const usersRef = db.collection("users");
 export const userRef = (uid: string) => {
-    return  usersRef.doc(uid)
+    return usersRef.doc(uid)
+};
+
+export const tweetsRef = db.collection("tweets");
+export const tweetRef = (id: string) => {
+    return tweetsRef.doc(id)
 };

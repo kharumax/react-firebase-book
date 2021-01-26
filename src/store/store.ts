@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userReducer from "./slices/userSlice";
+import tweetsReducer from "./slices/tweetsSlice";
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
+        tweets: tweetsReducer,
     },
 });
 

@@ -1,25 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "../../../styles/shares/tweet/FeedContainer.module.css";
 import TweetCell from "./TweetCell";
-import {light} from "@material-ui/core/styles/createPalette";
+import {Tweet} from "../../../data/entities/Tweet";
 
-const FeedContainer: React.FC = () => {
+interface PROPS {
+    tweets: Tweet[]
+}
 
-    const [tweets,setTweets] = useState([
-        {id: 1,title: "First Tweet"},
-        {id: 2,title: "Second Tweet"},
-        {id: 3,title: "Third Tweet"},
-        {id: 4,title: "Four Tweet"},
-        {id: 5,title: "Five Tweet"},
-    ]);
+const FeedContainer: React.FC<PROPS> = (props) => {
+
+    useEffect(() => {
+        console.log(`DEBUG: This is Tweets ${props.tweets} at FeedContainer.tsx`);
+    },[props]);
 
     return (
         <div className={styles.FeedContainer}>
-            {tweets.map((tweet) => (
-                <div className={styles.FeedContainerTweetCell}>
-                    <TweetCell key={tweet.id} title={tweet.title}/>
-                </div>
-            ))}
+            {
+                props.tweets.map((tweet) => (
+                    <div className={styles.FeedContainerTweetCell}>
+                        <TweetCell key={tweet.id} tweet={tweet}/>
+                    </div>
+                ))
+            }
         </div>
     );
 };

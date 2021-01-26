@@ -1,9 +1,11 @@
 html {
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 body {
     overflow: scroll;
+    overflow-x: hidden;
 }
 
 .TopContainer {
@@ -187,7 +189,6 @@ body {
     user-select: none;
     color: lightgray;
 }
-
 
 
 

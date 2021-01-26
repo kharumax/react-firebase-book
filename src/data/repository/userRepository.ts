@@ -10,7 +10,7 @@ export interface Credential {
 
 export const fetchUser = async (uid: string) => {
     console.log(`DEBUG: uid is ${uid}`);
-    const document = await usersRef.doc(uid).get();
+    const document = await userRef(uid).get();
     if (document.exists && document.data() != undefined) {
         return buildUser(document.data()!);
     } else {

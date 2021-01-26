@@ -5,9 +5,18 @@ import PhotoIcon from "../../images/photo_image_icon.png";
 import XIcon from "../../images/x_icon.png";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import {User} from "../../data/entities/User";
+import {sendTweet} from "../../data/repository/tweetRepository";
+
+type TSendTweetFunction = (text: string,image: File | null) => void;
 
 interface PROPS {
     user: User
+    sendTweetAction: TSendTweetFunction
+}
+
+interface IError {
+    error: Error | null,
+    message: string | null
 }
 
 const TweetInput: React.FC<PROPS> = (props) => {
@@ -16,6 +25,7 @@ const TweetInput: React.FC<PROPS> = (props) => {
     const [image,setImage] = useState<File | null>(null);
     const [imageUrl,setImageUrl] = useState<string | null>(null);
     const [textCount,setTextCount] = useState("0/140");
+    const [error,setError] = useState<IError>({ error: null,message: null });
 
     const handleText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
@@ -36,10 +46,23 @@ const TweetInput: React.FC<PROPS> = (props) => {
         setImageUrl("");
     };
 
+    const postTweet = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        props.sendTweetAction(text,image);
+        clearStates()
+    };
+
+    const clearStates = () => {
+        setText("");
+        setTextCount("0/140");
+        setImage(null);
+        setImageUrl(null)
+    };
+
     return (
         <div className={styles.TweetInputContainer}>
             <img src={props.user.profileImageUrl} alt="ProfileImage" className={styles.TweetInputProfileImage}/>
-            <form className={styles.TweetInputContent}>
+            <form className={styles.TweetInputContent} onSubmit={postTweet}>
                 <TextareaAutosize placeholder="What's happening?" className={styles.TweetInputTextField} value={text} onChange={handleText}/>
                 {/*  写真が選択されている場合は表示する、それ以外は空タブになる  */}
                 { imageUrl ?

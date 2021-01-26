@@ -10,15 +10,24 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectUser,fetchCurrentUser} from "../../store/slices/userSlice";
 import {fetchUser} from "../../data/repository/userRepository";
 import LoadingPage from "../LoadingPage";
+import { Switch,Route,NavLink,useLocation } from "react-router-dom";
 import {auth} from "../../config/firebase";
+import Home from "../home/Home";
+import Explore from "../explore/Explore";
+import Messages from "../messages/Messages";
+import Profile from "../profile/Profile";
+import {getTitle} from "../../utils/Utils";
 
 const Top: React.FC = () => {
 
     const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
     const [isLoading,setIsLoading] = useState(true);
+    document.title = getTitle(useLocation().pathname);
 
     useEffect(() => {
+        //window.location.href = "/home";
+        console.log("DEBUG: useEffect is called at Top.tsx");
         fetchUser(currentUser.uid).then(user => {
             dispatch(fetchCurrentUser(user));
             setIsLoading(false)
@@ -33,11 +42,6 @@ const Top: React.FC = () => {
         return currentUser.profileImageUrl ? currentUser.profileImageUrl : ProfileIcon
     };
 
-    var list = [];
-    for(var i=0; i<100; i++) {
-        list.push(<li key={i}>`${i}番目`</li>)
-    }
-
     return (
         <>
             {isLoading ? <LoadingPage/> :
@@ -46,25 +50,26 @@ const Top: React.FC = () => {
 
                     </div>
                     <div className={styles.TopLeftContainer}>
-
-                        <img src={TwitterIcon} className={styles.TopTwitterIcon}/>
+                        <NavLink to="/home">
+                            <img src={TwitterIcon} alt="TwitterIcon" className={styles.TopTwitterIcon}/>
+                        </NavLink>
                         <div className={styles.TopSideBarContainer}>
-                            <button className={styles.TopSideBarItem}>
-                                <img src={HomeSideBarIcon} className={styles.TopSideBarIcon}/>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/home">
+                                <img src={HomeSideBarIcon} alt="HomeIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle} style={{paddingTop: "16px"}}>Home</p>
-                            </button>
-                            <button className={styles.TopSideBarItem}>
-                                <img src={ExploreSideBarIcon} className={styles.TopSideBarIcon}/>
+                            </NavLink>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/explore">
+                                <img src={ExploreSideBarIcon} alt="ExploreIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Explore</p>
-                            </button>
-                            <button className={styles.TopSideBarItem}>
-                                <img src={MessageSideBarIcon} className={styles.TopSideBarIcon}/>
+                            </NavLink>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/messages">
+                                <img src={MessageSideBarIcon} alt="MessagesIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Messages</p>
-                            </button>
-                            <button className={styles.TopSideBarItem}>
-                                <img src={ProfileSideBarIcon} className={styles.TopSideBarIcon}/>
+                            </NavLink>
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/profile">
+                                <img src={ProfileSideBarIcon} alt="ProfileIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Profile</p>
-                            </button>
+                            </NavLink>
                         </div>
                         <button className={styles.TopLogoutButton} onClick={handleLogout}>
                             ログアウト
@@ -73,7 +78,7 @@ const Top: React.FC = () => {
                             Tweet
                         </button>
                         <div className={styles.TopProfileContainer}>
-                            <img src={profileImage()} className={styles.TopProfileIcon}/>
+                            <img src={profileImage()} alt="ProfileImage" className={styles.TopProfileIcon}/>
                             <div className={styles.TopProfileInfo}>
                                 <p className={styles.TopProfileFullname}>{currentUser.fullname}</p>
                                 <p className={styles.TopProfileUsername}>@{currentUser.username}</p>
@@ -82,7 +87,20 @@ const Top: React.FC = () => {
 
                     </div>
                     <div className={styles.TopCenterContainer}>
-
+                        <Switch>
+                            <Route exact path="/home">
+                                <Home/>
+                            </Route>
+                            <Route exact path="/explore">
+                                <Explore/>
+                            </Route>
+                            <Route exact path="/messages">
+                                <Messages/>
+                            </Route>
+                            <Route exact path="/profile">
+                                <Profile/>
+                            </Route>
+                        </Switch>
                     </div>
                     <div className={styles.TopRightContainer}>
 

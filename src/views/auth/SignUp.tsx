@@ -26,7 +26,7 @@ const SignUp:React.FC = () => {
     const signUp = () => {
         console.log(`signUp is called`);
         signUpUser(credential).then(result => {
-            window.location.href = "/";
+            window.location.href = "/home";
             console.log(result)
         })
         .catch(error => {

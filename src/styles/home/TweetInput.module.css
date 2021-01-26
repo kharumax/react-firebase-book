@@ -1,0 +1,107 @@
+
+.TweetInputContainer {
+    display: flex;
+    width: 100%;
+    /*background-color: #1DA2F1;*/
+}
+
+.TweetInputProfileImage {
+    width: 60px;
+    height: 60px;
+    margin-left: 16px;
+    border-radius: 30px;
+}
+
+.TweetInputContent {
+    width: 80%;
+    margin-left: 16px;
+}
+
+.TweetInputTextField {
+    width: 100%;
+    font-size: 24px;
+    font-weight: bolder;
+    color: white;
+    background-color: #192834;
+    border-width: 0;
+    resize: none;
+    line-height: 120%;
+}
+.TweetInputTextField:focus {
+    outline: none;
+}
+.TweetInputImageContainer {
+    position: relative;
+    margin-top: 16px;
+    width: 100%;
+    height: 300px;
+}
+
+.TweetInputSelectedImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover;
+}
+.TweetInputXIcon {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 15px;
+    border: none;
+    cursor: pointer;
+    background-color: white;
+}
+
+.TweetInputContentFooter {
+    margin-top: 32px;
+    border-top: solid 1px #383838;
+    padding-top: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+.TweetInputPhotoSelectButton {
+    cursor: pointer;
+    padding: 0;
+}
+
+.TweetInputPhotoInput {
+    display: none;
+    padding: 0;
+}
+.TweetInputPhotoIcon {
+    width: 45px;
+    height: 45px;
+    filter: invert(60%) sepia(99%) saturate(3116%) hue-rotate(175deg) brightness(97%) contrast(94%);
+}
+
+.TweetInputFooterInner {
+    display: flex;
+}
+.TweetInputTextCount {
+    margin: 0 16px;
+    color: white;
+    font-weight: bold;
+    padding-top: 8px;
+    font-size: 20px;
+    padding-bottom: 24px;
+}
+
+.TweetInputPostButton {
+    display: block;
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 20px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    color: white;
+    background-color: #1DA2F1;
+    outline: none;
+}

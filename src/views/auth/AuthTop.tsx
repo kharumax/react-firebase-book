@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch,Route } from "react-router-dom";
+import { Switch,Route,Redirect } from "react-router-dom";
 import styles from "../../styles/auth/AuthTop.module.css";
 import LeftContainerIcon from "../../images/left-container.png";
 import TwitterIcon from "../../images/twitter-logo-white.png";
@@ -21,6 +21,12 @@ const AuthTop: React.FC = () => {
     return (
 
         <Switch>
+            <Route exact path="/login">
+                <Login/>
+            </Route>
+            <Route exact path="/signup">
+                <SignUp/>
+            </Route>
             <Route exact path="/">
                 <div className={styles.AuthTopBody}>
                     <div className={styles.AuthTopContainer}>
@@ -66,11 +72,8 @@ const AuthTop: React.FC = () => {
                     </div>
                 </div>
             </Route>
-            <Route exact path="/login">
-                <Login/>
-            </Route>
-            <Route exact path="/signup">
-                <SignUp/>
+            <Route>
+                <Redirect to="/"/>
             </Route>
         </Switch>
 

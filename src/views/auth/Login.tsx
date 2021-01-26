@@ -26,7 +26,7 @@ const Login: React.FC = () => {
         loginUser(email,password)
             .then(result => {
                 console.log(`DEBUG: This is ${result}`);
-                window.location.href = "/"
+                window.location.href = "/home"
             })
             .catch(error => {
                 console.log(`Error: This is ${error}`);

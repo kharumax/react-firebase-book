@@ -1,14 +1,6 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
-interface User {
-    uid: string;
-    fullname: string;
-    username: string;
-    profileImageUrl: string;
-    bio: string;
-}
-
 export const userSlice = createSlice({
    name: "user", // sliceの名称
    initialState: {
@@ -59,5 +51,6 @@ export const { login,logout,fetchCurrentUser } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user.user;
 // 中間の user は storeのreducerの名称を指している
 // 最後の user は userSliceのstateであるuserを指している
+
 
 export default userSlice.reducer;

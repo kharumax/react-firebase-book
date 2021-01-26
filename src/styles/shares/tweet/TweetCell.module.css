@@ -2,32 +2,113 @@
 .TweetCellContainer {
     width: 100%;
     display: flex;
+    padding-left: 16px;
+    padding-top: 16px;
 }
 
 .TweetCellProfileImage {
-    width: 30px;
-    height: 30px;
-    border-radius: 15px;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
 }
 
 .TweetCellContentContainer {
+    margin-left: 16px;
     width: 80%;
 }
 
 .TweetCellTweetInfo {
     display: flex;
+    margin-bottom: 8px;
 }
 
-.TweetCellText {
+.TweetCellFullname {
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    margin-right: 8px;
+}
 
+.TweetCellUsername {
+    color: #909090;
+    font-size: 16px;
+    padding-top: 4px;
+}
+
+
+.TweetCellText {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 16px;
 }
 
 .TweetCellImage {
     width: 100%;
     height: 300px;
     border-radius: 25px;
+    margin-bottom: 16px;
 }
 
 .TweetCellActionBar {
     display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.TweetCellActionItem {
+    display: flex;
+    width: 10%;
+}
+
+.TweetCellActionItem:hover .TweetCellActionItemImage {
+    filter: invert(53%) sepia(82%) saturate(2616%) hue-rotate(175deg) brightness(100%) contrast(90%);
+}
+
+.TweetCellActionItem:hover .TweetCellActionItemCount {
+    color: #1DA2F1;
+}
+
+.TweetCellActionItem:hover .TweetCellHeartIcon {
+    filter: invert(21%) sepia(82%) saturate(6639%) hue-rotate(360deg) brightness(93%) contrast(124%);
+}
+
+.TweetCellActionItem:hover .TweetCellActionItemLikedCount {
+    color: #ff0000;
+}
+
+.TweetCellActionItemImage {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    padding: 4px;
+    margin-right: 8px;
+}
+
+.TweetCellHeartIcon {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    padding: 4px;
+    margin-right: 8px;
+}
+
+.TweetCellHeartLikedIcon {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    padding: 4px;
+    margin-right: 8px;
+    filter: invert(21%) sepia(82%) saturate(6639%) hue-rotate(360deg) brightness(93%) contrast(124%);
+}
+
+.TweetCellActionItemCount {
+    padding-top: 8px;
+    color: #808080;
+}
+
+.TweetCellActionItemLikedCount {
+    padding-top: 8px;
+    color: #808080;
 }

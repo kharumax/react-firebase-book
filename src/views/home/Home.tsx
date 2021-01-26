@@ -16,6 +16,9 @@ const Home: React.FC = () => {
             <div className={styles.HomeTweetInputContainer}>
                 <TweetInput user={currentUser}/>
             </div>
+            <div className={styles.HomeBlankSpace}>
+
+            </div>
             <div className={styles.HomeFeedContainer}>
                 <FeedContainer/>
             </div>

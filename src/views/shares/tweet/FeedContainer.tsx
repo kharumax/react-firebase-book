@@ -16,7 +16,9 @@ const FeedContainer: React.FC = () => {
     return (
         <div className={styles.FeedContainer}>
             {tweets.map((tweet) => (
-                <TweetCell key={tweet.id} title={tweet.title}/>
+                <div className={styles.FeedContainerTweetCell}>
+                    <TweetCell key={tweet.id} title={tweet.title}/>
+                </div>
             ))}
         </div>
     );

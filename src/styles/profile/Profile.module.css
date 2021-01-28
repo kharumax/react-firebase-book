@@ -1,0 +1,210 @@
+
+.ProfileContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.ProfileNav {
+    display: flex;
+    height: 64px;
+    width: 100%;
+}
+
+.ProfileNavBackButton {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    margin-left: 16px;
+    margin-top: 16px;
+    filter: invert(66%) sepia(38%) saturate(7358%) hue-rotate(175deg) brightness(98%) contrast(92%);
+    transform: rotate(-180deg);
+}
+
+.ProfileNavUserInfo {
+    margin-left: 16px;
+    margin-top: 10px;
+}
+
+.ProfileNavUsername {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.ProfileNavTweetCount {
+    font-size: 14px;
+    color: #909090;
+}
+
+.ProfileUserInformationContainer {
+    width: 100%;
+    height: 300px;
+    position: relative;
+}
+
+.ProfileBackground {
+    width: 100%;
+    height: 224px;
+    background-color: #3D5465;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ProfileBackgroundImage {
+    width: 100%;
+    height: 224px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.ProfileImage {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    border: 3px solid black;
+    background-color: white;
+    position: absolute;
+    top: 168px;
+    left: 20px;
+}
+
+.ProfileButtonContainer {
+    display: flex;
+    top: 224px;
+    right: 0;
+    width: 344px;
+    height: 64px;
+    position: absolute;
+}
+
+.ProfileLogoutButton {
+    display: block;
+    width: 120px;
+    height: 48px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 32px;
+    cursor: pointer;
+    outline: none;
+    color: #1DA2F1;
+    background-color: white;
+    border: 1px solid #1DA2F1;
+    margin-top: 8px;
+    margin-left: 16px;
+}
+
+.ProfileSpaceTag {
+    display: block;
+    width: 120px;
+    height: 48px;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 32px;
+    outline: none;
+    background-color: #192834;
+    margin-top: 8px;
+    margin-left: 16px;
+}
+
+.ProfileActionButton {
+    display: block;
+    width: 160px;
+    height: 48px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 32px;
+    cursor: pointer;
+    outline: none;
+    color: #1DA2F1;
+    border: 1px solid #1DA2F1;
+    background-color: #192834;
+    margin-top: 8px;
+    margin-left: 16px;
+}
+
+.ProfileFullname {
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    margin-left: 20px;
+}
+
+.ProfileUsername {
+    color: #909090;
+    font-size: 16px;
+    margin-left: 20px;
+}
+
+.ProfileBio {
+    color: white;
+    font-size: 16px;
+    line-height: 20px;
+    margin-left: 20px;
+    margin-top: 16px;
+}
+
+.ProfileUserStats {
+    display: flex;
+    margin-left: 20px;
+    margin-top: 16px;
+}
+
+.ProfileRelationShipContainer {
+    display: flex;
+    margin-right: 16px;
+}
+
+.ProfileRelationShipCount {
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 8px;
+    color: white;
+}
+
+.ProfileRelationShipText {
+    color: #909090;
+    font-size: 16px;
+}
+
+.ProfileFeedContainer {
+    width: 100%;
+}
+
+.ProfileFeedTabContainer {
+    display: flex;
+    width: 100%;
+    height: 48px;
+    border-bottom: 1px solid #383838;
+    margin-top: 16px;
+}
+
+.ProfileFeedTabItem {
+    width: 33%;
+    height: 48px;
+    color: #909090;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.ProfileFeedTabItemSelected {
+    width: 33%;
+    height: 48px;
+    color: #1DA2F1;
+    font-weight: bold;
+    font-size: 20px;
+    border-bottom: 1px solid #1DA2F1;
+    outline: none;
+}
+
+.ProfileFeedContentContainer {
+    width: 100%;
+    margin-top: 8px;
+}

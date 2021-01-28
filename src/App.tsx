@@ -7,6 +7,7 @@ import {selectUser, login, logout} from "./store/slices/userSlice";
 import { auth } from "./config/firebase";
 import LoadingPage from "./views/LoadingPage";
 import { Switch,Route,Redirect } from "react-router-dom";
+import Logout from "./views/auth/Logout";
 
 /** ここで認証済みの場合はTopコンポーネントへ、そうでない場合はAuthTopコンポーネントへ移動する */
 const App: React.FC = () => {
@@ -51,6 +52,9 @@ const App: React.FC = () => {
                     </Route>
                     <Route exact path="/signup">
                         <Redirect to="/home"/>
+                    </Route>
+                    <Route exact path="/logout">
+                        <Logout/>
                     </Route>
                     <Route>
                         <Top/>

@@ -90,9 +90,8 @@
     border-radius: 32px;
     cursor: pointer;
     outline: none;
-    color: #1DA2F1;
-    background-color: white;
-    border: 1px solid #1DA2F1;
+    color: white;
+    background-color: #1DA2F1;
     margin-top: 8px;
     margin-left: 16px;
 }

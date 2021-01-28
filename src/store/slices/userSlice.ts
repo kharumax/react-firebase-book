@@ -10,6 +10,7 @@ export const userSlice = createSlice({
            fullname: "",
            username: "",
            profileImageUrl: "",
+           backgroundUrl: "",
            bio: "",
            isLogin: false,
        }
@@ -28,6 +29,7 @@ export const userSlice = createSlice({
                fullname: "",
                username: "",
                profileImageUrl: "",
+               backgroundUrl: "",
                bio: "",
                isLogin: false,
            };
@@ -40,6 +42,7 @@ export const userSlice = createSlice({
                 fullname: data.fullname,
                 username: data.username,
                 profileImageUrl: data.profileImageUrl,
+                backgroundUrl: data.backgroundUrl,
                 bio: data.bio
             }
        }

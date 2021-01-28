@@ -17,6 +17,8 @@ import Explore from "../explore/Explore";
 import Messages from "../messages/Messages";
 import Profile from "../profile/Profile";
 import {getTitle} from "../../utils/Utils";
+import {fetchTweets} from "../../data/repository/tweetRepository";
+import {addTweets} from "../../store/slices/tweetsSlice";
 
 const Top: React.FC = () => {
 
@@ -30,7 +32,12 @@ const Top: React.FC = () => {
         console.log("DEBUG: useEffect is called at Top.tsx");
         fetchUser(currentUser.uid).then(user => {
             dispatch(fetchCurrentUser(user));
-            setIsLoading(false)
+            fetchTweets(currentUser.uid).then(result => {
+                dispatch(addTweets(result));
+                setIsLoading(false)
+            }).catch(error => {
+                console.log(`DEBUG: Error is ${error}`)
+            });
         });
     },[dispatch]);
 
@@ -66,7 +73,7 @@ const Top: React.FC = () => {
                                 <img src={MessageSideBarIcon} alt="MessagesIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Messages</p>
                             </NavLink>
-                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/profile">
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} to={`/${currentUser.uid}`}>
                                 <img src={ProfileSideBarIcon} alt="ProfileIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Profile</p>
                             </NavLink>
@@ -97,17 +104,13 @@ const Top: React.FC = () => {
                             <Route exact path="/messages">
                                 <Messages/>
                             </Route>
-                            <Route exact path="/profile">
-                                <Profile/>
+                            <Route path={`/${currentUser.uid}`}>
+                                <Profile user={currentUser}/>
                             </Route>
                         </Switch>
                     </div>
-                    <div className={styles.TopRightContainer}>
-
-                    </div>
-                    <div className={styles.TopRightSpaceContainer}>
-
-                    </div>
+                    <div className={styles.TopRightContainer}/>
+                    <div className={styles.TopRightSpaceContainer}/>
                 </div>
             }
         </>

@@ -11,7 +11,7 @@ import {Tweet} from "../../data/entities/Tweet";
 import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets} from "../../store/slices/profileSlice";
 import {selectUser} from "../../store/slices/userSlice";
 import LoadingPage from "../LoadingPage";
-import {auth} from "../../config/firebase";
+
 import {
     fetchIsFollowed,
     fetchRelationshipStats, fetchUserCommentTweets,
@@ -97,7 +97,7 @@ const Profile: React.FC<PROPS> = (props) => {
 
     const handleCommentsTweetsButton = () => {
         fetchUserCommentTweets(props.user.uid,currentUser.uid).then(result => {
-            dispatch(addLikeTweets(result))
+            dispatch(addCommentTweets(result))
         }).catch(e => {
             console.log(`Error: ${e} at Profile.tsx`)
         })

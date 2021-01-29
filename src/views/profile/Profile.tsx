@@ -8,10 +8,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectTweets} from "../../store/slices/tweetsSlice";
 import FeedContainer from "../shares/tweet/FeedContainer";
 import {Tweet} from "../../data/entities/Tweet";
-import {selectProfile,addUser} from "../../store/slices/profileSlice";
+import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets} from "../../store/slices/profileSlice";
 import {selectUser} from "../../store/slices/userSlice";
 import LoadingPage from "../LoadingPage";
 import {auth} from "../../config/firebase";
+import {
+    fetchIsFollowed,
+    fetchRelationshipStats, fetchUserCommentTweets,
+    fetchUserLikeTweets,
+    fetchUserPostTweets
+} from "../../data/repository/profileRepository";
 
 interface PROPS {
     user: User
@@ -43,13 +49,58 @@ const Profile: React.FC<PROPS> = (props) => {
             following: 0,
             followers: 0,
         };
-        const payload = {user: user,relationship: relationship};
-        dispatch(addUser(payload));
-        setIsLoading(false)
+        fetchIsFollowed(currentUser.uid,props.user.uid).then(result => {
+            relationship.isFollowed = result;
+            fetchRelationshipStats(props.user.uid).then(result => {
+                relationship.following = result.following;
+                relationship.followers = result.followers;
+                const payload = {user: user,relationship: relationship};
+                dispatch(addUser(payload));
+                fetchUserPostTweets(currentUser.uid,props.user.uid).then(result => {
+                    dispatch(addTweets(result));
+                    setIsLoading(false)
+                }).catch(e => {
+                    console.log(`Error: ${e} at Profile.tsx`)
+                })
+            }).catch(e => {
+                console.log(`Error: ${e}`)
+            })
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        });
     },[dispatch]);
+
 
     const handleLogoutButton = () => {
         window.location.href = "/logout";
+    };
+
+    const handleEditProfileButton = () => {
+        console.log(`DEBUG: handleEditProfileButton is clicked`)
+    };
+
+    const handleFollowButton = () => {
+        console.log(`DEBUG: handleFollowButton is clicked`)
+    };
+
+    const handleFollowingButton = () => {
+        console.log(`DEBUG: handleFollowingButton is clicked`)
+    };
+
+    const handleLikesTweetsButton = () => {
+        fetchUserLikeTweets(props.user.uid,currentUser.uid).then(result => {
+            dispatch(addLikeTweets(result))
+        }).catch(e => {
+            console.log(`Error: ${e} at Profile.tsx`)
+        })
+    };
+
+    const handleCommentsTweetsButton = () => {
+        fetchUserCommentTweets(props.user.uid,currentUser.uid).then(result => {
+            dispatch(addLikeTweets(result))
+        }).catch(e => {
+            console.log(`Error: ${e} at Profile.tsx`)
+        })
     };
 
     return (
@@ -77,7 +128,15 @@ const Profile: React.FC<PROPS> = (props) => {
                         <div className={styles.ProfileButtonContainer}>
                             {profile.user.isCurrentUser ? (<button className={styles.ProfileLogoutButton} onClick={handleLogoutButton}>Logout</button>)
                                 : <div className={styles.ProfileSpaceTag}/>}
-                            <button className={styles.ProfileActionButton}>Edit profile</button>
+                            {profile.user.isCurrentUser && (
+                                <button className={styles.ProfileActionButton} onClick={handleEditProfileButton}>Edit profile</button>
+                            )}
+                            {!profile.user.isCurrentUser && profile.relationship.isFollowed && (
+                                <button className={styles.ProfileActionDoneButton} onClick={handleFollowingButton}>Following</button>
+                            )}
+                            {!profile.user.isCurrentUser && !profile.relationship.isFollowed && (
+                                <button className={styles.ProfileActionButton} onClick={handleFollowButton}>Follow</button>
+                            )}
                         </div>
                     </div>
                     <div className={styles.ProfileFullname}>{profile.user.fullname}</div>
@@ -101,22 +160,22 @@ const Profile: React.FC<PROPS> = (props) => {
                                      activeClassName={styles.ProfileFeedTabItemSelected}>
                                 Tweets</NavLink>
                             <NavLink exact to={`/${props.user.uid}/likes`} className={styles.ProfileFeedTabItem}
-                                     activeClassName={styles.ProfileFeedTabItemSelected}>
+                                     activeClassName={styles.ProfileFeedTabItemSelected} onClick={handleLikesTweetsButton}>
                                 Likes</NavLink>
                             <NavLink exact to={`/${props.user.uid}/comments`} className={styles.ProfileFeedTabItem}
-                                     activeClassName={styles.ProfileFeedTabItemSelected}>
+                                     activeClassName={styles.ProfileFeedTabItemSelected} onClick={handleCommentsTweetsButton}>
                                 Comments</NavLink>
                         </div>
                         <div className={styles.ProfileFeedContentContainer}>
                             <Switch>
                                 <Route exact path={`/${props.user.uid}`}>
-                                    <FeedContainer tweets={tweets as Tweet[]}/>
+                                    <FeedContainer tweets={profile.tweets as Tweet[]}/>
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/likes`}>
-                                    <FeedContainer tweets={tweets as Tweet[]}/>
+                                    <FeedContainer tweets={profile.likeTweets as Tweet[]}/>
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/comments`}>
-                                    <FeedContainer tweets={tweets as Tweet[]}/>
+                                    <FeedContainer tweets={profile.commentTweets as Tweet[]}/>
                                 </Route>
                             </Switch>
                         </div>

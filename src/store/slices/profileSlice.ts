@@ -48,13 +48,13 @@ export const profileSlice = createSlice({
             state.relationship.followers = state.relationship.followers - 1
         },
         addTweets: (state,action) => {
-
+            state.tweets = action.payload
         },
         addLikeTweets: (state,action) => {
-
+            state.likeTweets = action.payload
         },
         addCommentTweets: (state,action) => {
-
+            state.commentTweets = action.payload
         },
         updateUser: (state,action) => {
 

@@ -29,3 +29,19 @@ export const tweetsRef = db.collection("tweets");
 export const tweetRef = (id: string) => {
     return tweetsRef.doc(id)
 };
+
+export const followingRef = (id: string) => {
+    return userRef(id).collection("following")
+};
+
+export const followersRef = (id: string) => {
+    return userRef(id).collection("followers")
+};
+
+export const userLikesTweetRef = (id: string) => {
+    return userRef(id).collection("likes")
+};
+
+export const userCommentsTweetRef = (id: string) => {
+    return userRef(id).collection("comments")
+};

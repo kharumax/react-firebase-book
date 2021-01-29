@@ -73,7 +73,7 @@ const Profile: React.FC<PROPS> = (props) => {
     };
 
     const handleEditProfileButton = () => {
-        console.log(`DEBUG: handleEditProfileButton is clicked`)
+        window.location.href = "/settings/profile";
     };
 
     const handleFollowButton = () => {

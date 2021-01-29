@@ -13,14 +13,17 @@ const FeedContainer: React.FC<PROPS> = (props) => {
         console.log(`DEBUG: This is Tweets ${props.tweets} at FeedContainer.tsx`);
     },[props]);
 
+    const feed = props.tweets.map((tweet) => (
+        <div className={styles.FeedContainerTweetCell}>
+            <TweetCell key={tweet.id} tweet={tweet}/>
+        </div>
+    ));
+
     return (
         <div className={styles.FeedContainer}>
             {
-                props.tweets.map((tweet) => (
-                    <div className={styles.FeedContainerTweetCell}>
-                        <TweetCell key={tweet.id} tweet={tweet}/>
-                    </div>
-                ))
+                (props.tweets.length == 0 || props.tweets[0].id == "") ?
+                <div/> : feed
             }
         </div>
     );

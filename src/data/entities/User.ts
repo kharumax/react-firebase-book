@@ -5,6 +5,7 @@ export type User = {
     fullname: string
     username: string
     profileImageUrl: string
+    backgroundUrl: string
     bio?: string
 }
 
@@ -14,6 +15,7 @@ export const buildUser = (data: firebase.firestore.DocumentData): User => {
         fullname: data.fullname,
         username: data.username,
         profileImageUrl: data.profileImageUrl,
+        backgroundUrl: data.backgroundUrl,
         bio: data.bio
     }
 };

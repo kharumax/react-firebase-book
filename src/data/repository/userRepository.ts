@@ -35,7 +35,7 @@ export const signUpUser = async (credential: Credential): Promise<string> => {
         console.log(`DEBUG: authUser is success at userRepository`);
         await userRef(authUser.user!.uid).set({
             uid: authUser.user!.uid,fullname: credential.fullname,username: credential.username,
-            bio: "",profileImageUrl: defaultImageUrl
+            bio: "",profileImageUrl: defaultImageUrl,backgroundUrl: ""
         });
         console.log(`DEBUG: setUser is success at userRepository`);
         return Promise.resolve(authUser.user!.uid)

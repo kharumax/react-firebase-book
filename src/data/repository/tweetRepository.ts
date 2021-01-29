@@ -17,7 +17,18 @@ import firebase from "firebase/app";
 
 export const fetchTweets = async (currentUid: string): Promise<Tweet[]> => {
     try {
-        const tweetDocs = await tweetsRef.orderBy("timestamp","desc").get();
+        const tweetDocs = tweetsRef.orderBy("timestamp","desc");
+        const tweets = await fetchTweetsByOption(tweetDocs,currentUid);
+        console.log(`DEBUG: tweets[0].id is ${tweets[0].id} at fetchUserPostTweets`);
+        return Promise.resolve(tweets)
+    } catch (e) {
+        return Promise.reject(e)
+    }
+};
+
+export const fetchTweetsByOption = async (ref: firebase.firestore.Query<firebase.firestore.DocumentData>,currentUid: string): Promise<Tweet[]> => {
+    try {
+        const tweetDocs = await ref.get();
         let tweets: Tweet[] = [];
         // ここでPromiseを返す配列を作成する。Promise自体を返すわけではないので await を利用しても意味がない
         const tweetsPromises = tweetDocs.docs.map(async doc => {

@@ -90,9 +90,8 @@
     border-radius: 32px;
     cursor: pointer;
     outline: none;
-    color: #1DA2F1;
-    background-color: white;
-    border: 1px solid #1DA2F1;
+    color: white;
+    background-color: #1DA2F1;
     margin-top: 8px;
     margin-left: 16px;
 }
@@ -124,6 +123,24 @@
     color: #1DA2F1;
     border: 1px solid #1DA2F1;
     background-color: #192834;
+    margin-top: 8px;
+    margin-left: 16px;
+}
+
+.ProfileActionDoneButton {
+    display: block;
+    width: 160px;
+    height: 48px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 32px;
+    cursor: pointer;
+    outline: none;
+    color: #1DA2F1;
+    border: 1px solid #1DA2F1;
+    background-color: transparent;
     margin-top: 8px;
     margin-left: 16px;
 }

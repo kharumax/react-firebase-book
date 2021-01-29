@@ -4,7 +4,6 @@ import {User} from "../entities/User";
 import {FirestoreTimestampToString, readNowTimestamp, uploadImage} from "../../utils/Utils";
 import firebase from "firebase/app";
 
-
 /*
 * Data Structure
 * posts -> likes -> userId

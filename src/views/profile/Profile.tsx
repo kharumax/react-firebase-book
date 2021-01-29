@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import styles from "../../styles/profile/Profile.module.css";
-import ProfileIcon from "../../images/ironman.jpg";
 import ArrowIcon from "../../images/arrow.png";
 import { Switch,Route,NavLink,useLocation } from "react-router-dom";
 import {User} from "../../data/entities/User";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTweets} from "../../store/slices/tweetsSlice";
 import FeedContainer from "../shares/tweet/FeedContainer";
 import {Tweet} from "../../data/entities/Tweet";
 import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets} from "../../store/slices/profileSlice";
@@ -29,7 +27,6 @@ const Profile: React.FC<PROPS> = (props) => {
     const [isLoading,setIsLoading] = useState(true);
     const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
-    const tweets = useSelector(selectTweets);
     document.title = `${props.user.fullname}`;
 
     useEffect(() => {

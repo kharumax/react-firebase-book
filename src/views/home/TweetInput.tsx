@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import styles from "../../styles/home/TweetInput.module.css";
-import ProfileIcon from "../../images/ironman.jpg";
 import PhotoIcon from "../../images/photo_image_icon.png";
 import XIcon from "../../images/x_icon.png";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import {User} from "../../data/entities/User";
-import {sendTweet} from "../../data/repository/tweetRepository";
 
 type TSendTweetFunction = (text: string,image: File | null) => void;
 

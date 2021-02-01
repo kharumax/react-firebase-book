@@ -16,6 +16,8 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
     const [isLoading,setIsLoading] = useState(true);
 
+    document.title = "Twitter";
+
     useEffect(() => {
         const unSub = auth.onAuthStateChanged(authUser => {
             console.log("DEBUG: unSub is called in App.tsx");

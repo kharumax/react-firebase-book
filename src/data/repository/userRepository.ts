@@ -8,6 +8,15 @@ export interface Credential {
     password: string;
 }
 
+export interface UpdateCredential {
+    readonly uid: string;
+    fullname: string;
+    username: string;
+    bio: string;
+    profileImage: File | null;
+    backgroundImage: File | null;
+}
+
 export const fetchUser = async (uid: string) => {
     console.log(`DEBUG: uid is ${uid}`);
     const document = await userRef(uid).get();
@@ -44,9 +53,14 @@ export const signUpUser = async (credential: Credential): Promise<string> => {
     }
 };
 
+export const updateUser = async (credential: UpdateCredential) => {
+
+};
+
 export const fetchUsers = async () => {
 
 };
+
 
 
 

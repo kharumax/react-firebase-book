@@ -45,11 +45,14 @@ export const userSlice = createSlice({
                 backgroundUrl: data.backgroundUrl,
                 bio: data.bio
             }
-       }
+       },
+       updateUser: (state,action) => {
+           state.user = action.payload;
+       },
    }
 });
 
-export const { login,logout,fetchCurrentUser } = userSlice.actions;
+export const { login,logout,fetchCurrentUser,updateUser } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user.user;
 // 中間の user は storeのreducerの名称を指している

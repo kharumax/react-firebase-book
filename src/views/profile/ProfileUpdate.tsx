@@ -2,11 +2,14 @@ import React, {useState} from 'react';
 import styles from "../../styles/profile/ProfileUpdate.module.css";
 import {User} from "../../data/entities/User";
 import Profile from "./Profile";
-import {useSelector} from "react-redux";
-import {selectUser} from "../../store/slices/userSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {selectUser,updateUser} from "../../store/slices/userSlice";
 import CameraIcon from "../../images/camera_icon.png";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import {UpdateCredential} from "../../data/repository/userRepository";
+import {selectProfile,updateUserProfile} from "../../store/slices/profileSlice";
+import {updateProfile} from "../../data/repository/profileRepository";
+import LoadingPage from "../LoadingPage";
 
 interface PROPS {
     user: User
@@ -15,10 +18,13 @@ interface PROPS {
 const ProfileUpdate: React.FC<PROPS> = (props) => {
 
     const currentUser = useSelector(selectUser);
+    const profile = useSelector(selectProfile);
+    const dispatch = useDispatch();
     const [credential,setCredential] = useState<UpdateCredential>({
         uid: props.user.uid,fullname: props.user.fullname,username: props.user.username,
         bio: props.user.bio ? props.user.bio : "",profileImage: null,backgroundImage: null
     });
+    const [isLoading,setIsLoading] = useState<boolean>(false);
 
     document.title = `${props.user.fullname} / settings`;
 
@@ -47,58 +53,87 @@ const ProfileUpdate: React.FC<PROPS> = (props) => {
     };
 
     const handleClickSave = (e: React.FormEvent<HTMLFormElement>) => {
+        setIsLoading(true);
         e.preventDefault();
-        window.location.href =  `/${currentUser.uid}`
+        updateProfile(currentUser,credential).then(result => {
+            dispatch(updateUser(result));
+            dispatch(updateUserProfile(result));
+            setIsLoading(false);
+            window.location.href =  `/${currentUser.uid}`
+        }).catch(e => {
+            setIsLoading(false);
+            console.log(`Error: ${e} at ProfileUpdate.tsx`);
+        });
     };
 
     return (
-        <div className={styles.ProfileUpdateContainer}>
-            <div className={styles.ProfileContainer} onClick={handleClickBack}>
-                <Profile user={props.user}/>
-            </div>
-            <form className={styles.ProfileUpdateContent} onSubmit={handleClickSave}>
-                <div className={styles.ProfileUpdateHeader}>
-                    <div className={styles.ProfileUpdateHeaderInner}>
-                        <button className={styles.ProfileUpdateXIcon} type="reset" onClick={handleClickBack}>×</button>
-                        <div className={styles.ProfileUpdateTitle}>
-                            Edit Profile
-                        </div>
+        <>
+        {
+            isLoading ?
+                (<LoadingPage/>)
+                :
+                <div className={styles.ProfileUpdateContainer}>
+                    <div className={styles.ProfileContainer} onClick={handleClickBack}>
+                        <Profile user={props.user}/>
                     </div>
-                    <button type="submit" className={styles.ProfileUpdateSaveButton}>
-                        Save
-                    </button>
-                </div>
-                <div className={styles.ProfileUpdateBackground}>
-                    {/* 既に画像がある場合、もしくは画像を選択した時　*/}
-                    { credential.backgroundImage != null && (<img src={window.URL.createObjectURL(credential.backgroundImage)} alt="BackgroundImage" className={styles.ProfileUpdateBackgroundImageSelected}/>) }
-                    { props.user.backgroundUrl != "" && credential.backgroundImage == null && (<img src={props.user.backgroundUrl} alt="BackgroundImage" className={styles.ProfileUpdateBackgroundImageSelected}/>) }
-                    <label className={styles.ProfileUpdateBackgroundButton}>
+                    <form className={styles.ProfileUpdateContent} onSubmit={handleClickSave}>
+                        <div className={styles.ProfileUpdateHeader}>
+                            <div className={styles.ProfileUpdateHeaderInner}>
+                                <button className={styles.ProfileUpdateXIcon} type="reset" onClick={handleClickBack}>×
+                                </button>
+                                <div className={styles.ProfileUpdateTitle}>
+                                    Edit Profile
+                                </div>
+                            </div>
+                            <button type="submit" className={styles.ProfileUpdateSaveButton}>
+                                Save
+                            </button>
+                        </div>
+                        <div className={styles.ProfileUpdateBackground}>
+                            {/* 既に画像がある場合、もしくは画像を選択した時　*/}
+                            {credential.backgroundImage != null && (
+                                <img src={window.URL.createObjectURL(credential.backgroundImage)} alt="BackgroundImage"
+                                     className={styles.ProfileUpdateBackgroundImageSelected}/>)}
+                            {props.user.backgroundUrl != "" && credential.backgroundImage == null && (
+                                <img src={props.user.backgroundUrl} alt="BackgroundImage"
+                                     className={styles.ProfileUpdateBackgroundImageSelected}/>)}
+                            <label className={styles.ProfileUpdateBackgroundButton}>
                         <span>
                             <img src={CameraIcon} alt="PhotoSelectedButton" className={styles.ProfileUpdateCameraIcon}/>
                         </span>
-                        <input type="file" className={styles.ProfileUpdateImageInput} name="backgroundImage" accept="image/*" onChange={handleChangeImage}/>
-                    </label>
-                </div>
-                <div className={styles.ProfileUpdateImageContainer}>
-                    { credential.profileImage != null ?
-                        (<img src={window.URL.createObjectURL(credential.profileImage)} alt="Profile" className={styles.ProfileUpdateProfileImageSelected}/>)
-                        :
-                        (<img src={props.user.profileImageUrl} alt="Profile" className={styles.ProfileUpdateProfileImageSelected}/>)
-                    }
-                    <label className={styles.ProfileUpdateImageButton}>
+                                <input type="file" className={styles.ProfileUpdateImageInput} name="backgroundImage"
+                                       accept="image/*" onChange={handleChangeImage}/>
+                            </label>
+                        </div>
+                        <div className={styles.ProfileUpdateImageContainer}>
+                            {credential.profileImage != null ?
+                                (<img src={window.URL.createObjectURL(credential.profileImage)} alt="Profile"
+                                      className={styles.ProfileUpdateProfileImageSelected}/>)
+                                :
+                                (<img src={props.user.profileImageUrl} alt="Profile"
+                                      className={styles.ProfileUpdateProfileImageSelected}/>)
+                            }
+                            <label className={styles.ProfileUpdateImageButton}>
                         <span>
-                            <img src={CameraIcon} alt="PhotoSelectedButton" className={styles.ProfileUpdateSmallCameraIcon}/>
+                            <img src={CameraIcon} alt="PhotoSelectedButton"
+                                 className={styles.ProfileUpdateSmallCameraIcon}/>
                         </span>
-                        <input type="file" className={styles.ProfileUpdateImageInput} name="profileImage" accept="image/*" onChange={handleChangeImage}/>
-                    </label>
+                                <input type="file" className={styles.ProfileUpdateImageInput} name="profileImage"
+                                       accept="image/*" onChange={handleChangeImage}/>
+                            </label>
+                        </div>
+                        <div className={styles.ProfileUpdateTextContainer}>
+                            <input type="text" className={styles.ProfileUpdateFullnameTextField} name="fullname"
+                                   value={credential.fullname} onChange={handleCredential}/>
+                            <input type="text" className={styles.ProfileUpdateUsernameTextField} name="username"
+                                   value={credential.username} onChange={handleCredential}/>
+                            <TextareaAutosize className={styles.ProfileUpdateBioTextArea} name="bio"
+                                              value={credential.bio} onChange={handleBio}/>
+                        </div>
+                    </form>
                 </div>
-                <div className={styles.ProfileUpdateTextContainer}>
-                    <input type="text" className={styles.ProfileUpdateFullnameTextField} name="fullname" value={credential.fullname} onChange={handleCredential}/>
-                    <input type="text" className={styles.ProfileUpdateUsernameTextField} name="username" value={credential.username} onChange={handleCredential}/>
-                    <TextareaAutosize className={styles.ProfileUpdateBioTextArea} name="bio" value={credential.bio} onChange={handleBio} />
-                </div>
-            </form>
-        </div>
+        }
+        </>
     );
 };
 

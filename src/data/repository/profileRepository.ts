@@ -1,6 +1,16 @@
-import {followersRef, followingRef, tweetsRef, userCommentsTweetRef, userLikesTweetRef} from "../../config/firebase";
+import {
+    followersRef,
+    followingRef,
+    tweetsRef,
+    userCommentsTweetRef,
+    userLikesTweetRef,
+    userRef
+} from "../../config/firebase";
 import {Tweet} from "../entities/Tweet";
 import {fetchTweetsByOption} from "./tweetRepository";
+import {UpdateCredential} from "./userRepository";
+import {User} from "../entities/User";
+import {uploadImage} from "../../utils/Utils";
 
 
 export const fetchIsFollowed = async (currentUid: string,uid: string): Promise<boolean> => {
@@ -70,6 +80,31 @@ export const fetchUserCommentTweets = async (uid: string,currentUid: string): Pr
         tweets = await fetchTweetsByOption(tweetDocs, currentUid);
         return Promise.resolve(tweets)
     } catch (e) {
+        return Promise.reject(e)
+    }
+};
+
+export const updateProfile = async (currentUser: User,credential: UpdateCredential): Promise<User> => {
+    try {
+        let profileImageUrl = currentUser.profileImageUrl;
+        let backgroundUrl = currentUser.backgroundUrl;
+        if (credential.profileImage != null) {
+            profileImageUrl = await uploadImage(credential.profileImage,"profile_image",currentUser.uid)
+        }
+        if (credential.backgroundImage != null) {
+            backgroundUrl = await uploadImage(credential.backgroundImage,"background_image",currentUser.uid)
+        }
+        await userRef(currentUser.uid).update({
+            fullname: credential.fullname,username: credential.username,bio: credential.bio,
+            profileImageUrl: profileImageUrl,backgroundUrl: backgroundUrl
+        });
+        const user: User = {
+            uid: currentUser.uid,fullname: credential.fullname,username: credential.username,
+            bio: credential.bio,profileImageUrl: profileImageUrl,backgroundUrl: backgroundUrl
+        };
+        return Promise.resolve(user);
+    } catch (e) {
+        console.log(`Error: ${e} at profileRepository`);
         return Promise.reject(e)
     }
 };

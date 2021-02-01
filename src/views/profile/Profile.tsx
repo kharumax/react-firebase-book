@@ -166,13 +166,13 @@ const Profile: React.FC<PROPS> = (props) => {
                         <div className={styles.ProfileFeedContentContainer}>
                             <Switch>
                                 <Route exact path={`/${props.user.uid}`}>
-                                    <FeedContainer tweets={profile.tweets as Tweet[]}/>
+                                    <FeedContainer key={`userTweets_${currentUser.uid}`} tweets={profile.tweets as Tweet[]}/>
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/likes`}>
-                                    <FeedContainer tweets={profile.likeTweets as Tweet[]}/>
+                                    <FeedContainer key={`userLikes_${currentUser.uid}`} tweets={profile.likeTweets as Tweet[]}/>
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/comments`}>
-                                    <FeedContainer tweets={profile.commentTweets as Tweet[]}/>
+                                    <FeedContainer key={`userComments_${currentUser.uid}`} tweets={profile.commentTweets as Tweet[]}/>
                                 </Route>
                             </Switch>
                         </div>

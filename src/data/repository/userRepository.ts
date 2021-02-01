@@ -53,10 +53,6 @@ export const signUpUser = async (credential: Credential): Promise<string> => {
     }
 };
 
-export const updateUser = async (credential: UpdateCredential) => {
-
-};
-
 export const fetchUsers = async () => {
 
 };

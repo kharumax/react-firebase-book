@@ -56,13 +56,13 @@ export const profileSlice = createSlice({
         addCommentTweets: (state,action) => {
             state.commentTweets = action.payload
         },
-        updateUser: (state,action) => {
-
+        updateUserProfile: (state,action) => {
+            state.user = action.payload;
         },
     }
 });
 
-export const { addUser,follow,unFollow,addTweets,addLikeTweets,addCommentTweets,updateUser } = profileSlice.actions;
+export const { addUser,follow,unFollow,addTweets,addLikeTweets,addCommentTweets,updateUserProfile } = profileSlice.actions;
 
 export const selectProfile = (state: RootState) => state.profile;
 

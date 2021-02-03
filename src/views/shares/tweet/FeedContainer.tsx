@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styles from "../../../styles/shares/tweet/FeedContainer.module.css";
 import TweetCell from "./TweetCell";
 import {Tweet} from "../../../data/entities/Tweet";

@@ -42,10 +42,6 @@ const Top: React.FC = () => {
         });
     },[dispatch]);
 
-    const handleLogout = async () => {
-        await auth.signOut()
-    };
-
     const profileImage = () => {
         return currentUser.profileImageUrl ? currentUser.profileImageUrl : ProfileIcon
     };
@@ -66,7 +62,7 @@ const Top: React.FC = () => {
                                 <img src={HomeSideBarIcon} alt="HomeIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle} style={{paddingTop: "16px"}}>Home</p>
                             </NavLink>
-                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/explore">
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} to="/explore">
                                 <img src={ExploreSideBarIcon} alt="ExploreIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Explore</p>
                             </NavLink>
@@ -99,7 +95,7 @@ const Top: React.FC = () => {
                             <Route exact path="/home">
                                 <Home/>
                             </Route>
-                            <Route exact path="/explore">
+                            <Route path="/explore">
                                 <Explore/>
                             </Route>
                             <Route exact path="/messages">

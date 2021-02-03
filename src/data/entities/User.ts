@@ -20,3 +20,14 @@ export const buildUser = (data: firebase.firestore.DocumentData): User => {
     }
 };
 
+export type UserInfo = {
+    user: User;
+    isFollowed: boolean;
+}
+
+export const buildUserInfo = (user: User,isFollowed: boolean): UserInfo => {
+    return {
+        user: user,
+        isFollowed: isFollowed
+    }
+};

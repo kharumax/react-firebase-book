@@ -6,9 +6,12 @@ import HeartLikedIcon from "../../../images/heart_liked_icon.png";
 import CommentIcon from "../../../images/comment_icon.png";
 import SaveIcon from "../../../images/save_icon.png";
 import {Tweet} from "../../../data/entities/Tweet";
+import {TLikeTweetAction, TUnLikeTweetAction} from "../../../store/slices/tweetsSlice";
 
 interface PROPS {
     tweet: Tweet
+    likeTweetAction: TLikeTweetAction
+    unLikeTweetAction: TUnLikeTweetAction
 }
 
 const TweetCell: React.FC<PROPS> = (props) => {

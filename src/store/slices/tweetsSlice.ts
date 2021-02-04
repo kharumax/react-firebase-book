@@ -32,15 +32,21 @@ export const tweetsSlice = createSlice({
                 tweet.username.toLowerCase().includes(keyword) || tweet.fullname.toLowerCase().includes(keyword) ||
                 tweet.text.toLowerCase().includes(keyword)
             ))
+        },
+        likeTweet: (state,action) => {
+
+        },
+        unLikeTweet: (state,action) => {
+
         }
     }
 });
 
-export const { addTweets,addTweet,searchTweets } = tweetsSlice.actions;
+export const { addTweets,addTweet,searchTweets,likeTweet,unLikeTweet } = tweetsSlice.actions;
 
 export const selectTweets = (state: RootState) => state.tweets.tweets;
-// 中間の user は storeのreducerの名称を指している
-// 最後の user は userSliceのstateであるuserを指している
 
 export default tweetsSlice.reducer;
 
+export type TLikeTweetAction = (tweetId: string) => void;
+export type TUnLikeTweetAction = (tweetId: string) => void;

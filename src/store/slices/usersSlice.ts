@@ -33,14 +33,36 @@ export const usersSlice = createSlice({
             state.users = state.users.filter(userInfo => (
                 userInfo.user.fullname.toLowerCase().includes(keyword) || userInfo.user.username.toLowerCase().includes(keyword)
             ));
-        }
+        },
+        followUser: (state,action: {payload: string}) => {
+            const uid = action.payload;
+            state.users = state.users.map(userInfo => {
+                if (userInfo.user.uid == uid) {
+                    userInfo.isFollowed = true
+                }
+                return userInfo;
+            });
+        },
+        unFollowUser: (state,action: {payload: string}) => {
+            const uid = action.payload;
+            state.users = state.users.map(userInfo => {
+                if (userInfo.user.uid == uid) {
+                    userInfo.isFollowed = false
+                }
+                return userInfo;
+            });
+        },
     }
 });
 
-export const { addUsers,searchUsers } = usersSlice.actions;
+export const { addUsers,searchUsers,followUser,unFollowUser } = usersSlice.actions;
 
 export const selectUsers = (state: RootState) => state.users.users;
 
 export default usersSlice.reducer;
 
-export type TFollowAction = (uid: string) => string;
+export type TFollowAction = (uid: string) => void;
+
+export type TUnFollowAction = (uid: string) => void;
+
+

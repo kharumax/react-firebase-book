@@ -20,6 +20,7 @@ import {fetchTweets} from "../../data/repository/tweetRepository";
 import {addTweets} from "../../store/slices/tweetsSlice";
 import ProfileUpdate from "../profile/ProfileUpdate";
 import {addUsers} from "../../store/slices/usersSlice";
+import UserProfile from "../profile/UserProfile";
 
 const Top: React.FC = () => {
 
@@ -111,6 +112,7 @@ const Top: React.FC = () => {
                             <Route exact path="/settings/profile">
                                 <ProfileUpdate user={currentUser}/>
                             </Route>
+                            <Route path="/:uid" component={UserProfile}/>
                         </Switch>
                     </div>
                     <div className={styles.TopRightContainer}/>

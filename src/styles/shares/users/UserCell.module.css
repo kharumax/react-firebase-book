@@ -4,6 +4,7 @@
     width: 100%;
     display: flex;
     padding: 8px;
+    cursor: pointer;
 }
 
 .UserCellProfileImage {
@@ -75,6 +76,22 @@
 
 .UserCellUnFollowButton:hover {
     background-color: red;
+}
+
+.UserCellUnFollowButton:hover .UserCellButtonTextNormal {
+    display: none;
+}
+
+.UserCellUnFollowButton:hover .UserCellButtonTextHover {
+    display: inline;
+}
+
+.UserCellButtonTextNormal {
+    display: inline;
+}
+
+.UserCellButtonTextHover {
+    display: none;
 }
 
 .UserCellBio {

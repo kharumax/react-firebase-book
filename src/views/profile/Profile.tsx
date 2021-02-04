@@ -1,21 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import styles from "../../styles/profile/Profile.module.css";
 import ArrowIcon from "../../images/arrow.png";
-import { Switch,Route,NavLink,useLocation } from "react-router-dom";
+import { Switch,Route,NavLink,useHistory } from "react-router-dom";
 import {User} from "../../data/entities/User";
 import {useDispatch, useSelector} from "react-redux";
 import FeedContainer from "../shares/tweet/FeedContainer";
 import {Tweet} from "../../data/entities/Tweet";
-import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets} from "../../store/slices/profileSlice";
+import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets,follow,unFollow} from "../../store/slices/profileSlice";
 import {selectUser} from "../../store/slices/userSlice";
 import LoadingPage from "../LoadingPage";
+import { followUser,unFollowUser } from "../../store/slices/usersSlice";
 
 import {
     fetchIsFollowed,
     fetchRelationshipStats, fetchUserCommentTweets,
     fetchUserLikeTweets,
-    fetchUserPostTweets
+    fetchUserPostTweets,
 } from "../../data/repository/profileRepository";
+import {sendFollowUser, sendUnFollowUser} from "../../data/repository/userRepository";
 
 interface PROPS {
     user: User
@@ -27,11 +29,11 @@ const Profile: React.FC<PROPS> = (props) => {
     const [isLoading,setIsLoading] = useState(true);
     const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
+    const history = useHistory();
     document.title = `${props.user.fullname}`;
 
     useEffect(() => {
         setIsLoading(true);
-        console.log(`DEBUG: useEffect is called at Profile.tsx`);
         const user = {
             uid: props.user.uid,
             fullname: props.user.fullname,
@@ -77,11 +79,21 @@ const Profile: React.FC<PROPS> = (props) => {
     };
 
     const handleFollowButton = () => {
-        console.log(`DEBUG: handleFollowButton is clicked`)
+        sendFollowUser(currentUser.uid,profile.user.uid).then(() => {
+            dispatch(follow());
+            dispatch(followUser(profile.user.uid))
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        })
     };
 
     const handleFollowingButton = () => {
-        console.log(`DEBUG: handleFollowingButton is clicked`)
+        sendUnFollowUser(currentUser.uid,profile.user.uid).then(() => {
+            dispatch(unFollow());
+            dispatch(unFollowUser(profile.user.uid))
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        })
     };
 
     const handleLikesTweetsButton = () => {
@@ -100,6 +112,10 @@ const Profile: React.FC<PROPS> = (props) => {
         })
     };
 
+    const handleNavBackButton = (e: React.MouseEvent<HTMLImageElement>) => {
+        history.goBack();
+    };
+
     return (
         <>
         {
@@ -108,7 +124,7 @@ const Profile: React.FC<PROPS> = (props) => {
                 :
                 <div className={styles.ProfileContainer}>
                     <div className={styles.ProfileNav}>
-                        <img src={ArrowIcon} alt="BackButton" className={styles.ProfileNavBackButton}/>
+                        <img src={ArrowIcon} alt="BackButton" className={styles.ProfileNavBackButton} onClick={handleNavBackButton}/>
                         <div className={styles.ProfileNavUserInfo}>
                             <div className={styles.ProfileNavUsername}>{profile.user.fullname}</div>
                             <div className={styles.ProfileNavTweetCount}>0 Tweets</div>
@@ -129,7 +145,10 @@ const Profile: React.FC<PROPS> = (props) => {
                                 <button className={styles.ProfileActionButton} onClick={handleEditProfileButton}>Edit profile</button>
                             )}
                             {!profile.user.isCurrentUser && profile.relationship.isFollowed && (
-                                <button className={styles.ProfileActionDoneButton} onClick={handleFollowingButton}>Following</button>
+                                <button className={styles.ProfileActionDoneButton} onClick={handleFollowingButton}>
+                                    <span className={styles.ProfileButtonTextNormal}>Following</span>
+                                    <span className={styles.ProfileButtonTextHover}>UnFollow</span>
+                                </button>
                             )}
                             {!profile.user.isCurrentUser && !profile.relationship.isFollowed && (
                                 <button className={styles.ProfileActionButton} onClick={handleFollowButton}>Follow</button>

@@ -138,12 +138,33 @@
     border-radius: 32px;
     cursor: pointer;
     outline: none;
-    color: #1DA2F1;
-    border: 1px solid #1DA2F1;
-    background-color: transparent;
+    color: white;
+    background-color: #1DA2F1;
     margin-top: 8px;
     margin-left: 16px;
+    border-width: 0;
 }
+
+.ProfileActionDoneButton:hover {
+    background-color: red;
+}
+
+.ProfileActionDoneButton:hover .ProfileButtonTextNormal {
+    display: none;
+}
+
+.ProfileActionDoneButton:hover .ProfileButtonTextHover {
+    display: inline;
+}
+
+.ProfileButtonTextNormal {
+    display: inline;
+}
+
+.ProfileButtonTextHover {
+    display: none;
+}
+
 
 .ProfileFullname {
     font-weight: bold;

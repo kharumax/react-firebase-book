@@ -39,11 +39,11 @@ export const profileSlice = createSlice({
             state.user = action.payload.user;
             state.relationship = action.payload.relationship;
         },
-        follow: (state,action) => {
+        follow: (state) => {
             state.relationship.isFollowed = true;
             state.relationship.followers = state.relationship.followers + 1
         },
-        unFollow: (state,action) => {
+        unFollow: (state) => {
             state.relationship.isFollowed = false;
             state.relationship.followers = state.relationship.followers - 1
         },

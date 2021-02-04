@@ -11,18 +11,22 @@ interface PROPS {
 
 const UserCell: React.FC<PROPS> = (props) => {
 
-    const [isHover,setIsHover] = useState<boolean>(false);
-
-    const handleFollowButton = () => {
+    const handleFollowButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         props.followAction(props.userInfo.user.uid)
     };
 
-    const handleUnFollowButton = () => {
+    const handleUnFollowButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         props.unFollowAction(props.userInfo.user.uid)
     };
 
+    const handleUserCellClick = () => {
+        window.location.href = `/${props.userInfo.user.uid}`
+    };
+
     return (
-        <div className={styles.UserCellContainer}>
+        <div className={styles.UserCellContainer} onClick={handleUserCellClick}>
             <img src={props.userInfo.user.profileImageUrl} alt="ProfileIcon" className={styles.UserCellProfileImage}/>
             <div className={styles.UserCellContent}>
                 <div className={styles.UserCellInnerContent}>
@@ -31,10 +35,10 @@ const UserCell: React.FC<PROPS> = (props) => {
                         <div className={styles.UserCellUsername}>@{props.userInfo.user.username}</div>
                     </div>
                     { props.userInfo.isFollowed ?
-                        <button className={styles.UserCellUnFollowButton} onMouseOver={() => setIsHover(true)} onMouseOut={() => setIsHover(false)}
-                            onClick={handleUnFollowButton}
+                        <button className={styles.UserCellUnFollowButton} onClick={handleUnFollowButton}
                         >
-                            {isHover ? "UnFollow" : "Following"}
+                            <span className={styles.UserCellButtonTextHover}>UnFollow</span>
+                            <span className={styles.UserCellButtonTextNormal}>Following</span>
                         </button>
                         :
                         <button className={styles.UserCellFollowButton} onClick={handleFollowButton}>

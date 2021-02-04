@@ -9,6 +9,7 @@ import UsersContainer from "../shares/users/UsersContainer";
 import {selectUsers,addUsers,searchUsers,followUser,unFollowUser} from "../../store/slices/usersSlice";
 import {selectUser} from "../../store/slices/userSlice";
 import {fetchUsers, sendFollowUser, sendUnFollowUser} from "../../data/repository/userRepository";
+import {sendLikeTweet, sendUnLikeTweet} from "../../data/repository/tweetRepository";
 
 const Explore: React.FC = () => {
 
@@ -46,11 +47,19 @@ const Explore: React.FC = () => {
     };
 
     const likeTweetAction = (tweetId: string) => {
-        dispatch(likeTweet(tweetId))
+        sendLikeTweet(currentUser.uid,tweetId).then(() => {
+            dispatch(likeTweet(tweetId));
+        }).catch(e => {
+            console.log(`Error: ${e}`);
+        })
     };
 
     const unLikeTweetAction = (tweetId: string) => {
-        dispatch(unLikeTweet(tweetId))
+        sendUnLikeTweet(currentUser.uid,tweetId).then(() => {
+            dispatch(unLikeTweet(tweetId));
+        }).catch(e => {
+            console.log(`Error: ${e}`);
+        })
     };
 
     const followAction = (uid: string) => {

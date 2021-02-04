@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import {UserInfo} from "../../../data/entities/User";
 import styles from "../../../styles/shares/users/UserCell.module.css";
-import ProfileIcon from "../../../images/ironman.jpg";
 
 interface PROPS {
     userInfo: UserInfo
@@ -9,15 +8,14 @@ interface PROPS {
 
 const UserCell: React.FC<PROPS> = (props) => {
 
-    const [isFollowed,setIsFollowed] = useState<boolean>(false);
     const [isHover,setIsHover] = useState<boolean>(false);
 
     const handleFollowButton = () => {
-        setIsFollowed(true);
+
     };
 
     const handleUnFollowButton = () => {
-        setIsFollowed(false);
+
     };
 
     return (

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {UserInfo} from "../../../data/entities/User";
 import styles from "../../../styles/shares/users/UsersContainer.module.css";
 import UserCell from "./UserCell";

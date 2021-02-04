@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from "../../../styles/shares/tweet/TweetCell.module.css";
-import ProfileIcon from "../../../images/ironman.jpg";
 import HeartIcon from "../../../images/heart_icon.png";
 import HeartLikedIcon from "../../../images/heart_liked_icon.png";
 import CommentIcon from "../../../images/comment_icon.png";
@@ -15,6 +14,16 @@ interface PROPS {
 }
 
 const TweetCell: React.FC<PROPS> = (props) => {
+
+    const likeTweetAction = (e: React.MouseEvent<HTMLImageElement>) => {
+        e.stopPropagation();
+        props.likeTweetAction(props.tweet.id)
+    };
+
+    const unLikeTweetAction = (e: React.MouseEvent<HTMLImageElement>) => {
+        e.stopPropagation();
+        props.unLikeTweetAction(props.tweet.id)
+    };
 
     return (
         <div className={styles.TweetCellContainer}>
@@ -36,11 +45,20 @@ const TweetCell: React.FC<PROPS> = (props) => {
                 <div className={styles.TweetCellActionBar}>
                     <div className={styles.TweetCellActionItem}>
                         <img src={CommentIcon} alt="ActionIcon" className={styles.TweetCellActionItemImage}/>
-                        <div className={styles.TweetCellActionItemCount}>{props.tweet.likes}</div>
+                        <div className={styles.TweetCellActionItemCount}>{props.tweet.comments}</div>
                     </div>
                     <div className={styles.TweetCellActionItem}>
-                        <img src={HeartIcon} alt="ActionIcon" className={styles.TweetCellHeartIcon} onClick={() => console.log("Clicked!")}/>
-                        <div className={styles.TweetCellActionItemLikedCount}>{props.tweet.comments}</div>
+                        {
+                            props.tweet.isLiked ?
+                                <img src={HeartLikedIcon} alt="ActionIcon"
+                                     className={styles.TweetCellHeartLikedIcon}
+                                     onClick={unLikeTweetAction}/>
+                                     :
+                                <img src={HeartIcon} alt="ActionIcon"
+                                     className={styles.TweetCellHeartIcon}
+                                     onClick={likeTweetAction}/>
+                        }
+                        <div className={styles.TweetCellActionItemLikedCount}>{props.tweet.likes}</div>
                     </div>
                     <div className={styles.TweetCellActionItem}>
                         <img src={SaveIcon} alt="ActionIcon" className={styles.TweetCellActionItemImage}/>

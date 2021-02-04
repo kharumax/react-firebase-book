@@ -2,11 +2,10 @@ import React, {useEffect} from 'react';
 import styles from "../../styles/home/Home.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {selectUser} from "../../store/slices/userSlice";
-import {selectTweets,addTweets } from "../../store/slices/tweetsSlice";
+import {selectTweets,addTweets,likeTweet,unLikeTweet } from "../../store/slices/tweetsSlice";
 import TweetInput from "./TweetInput";
 import FeedContainer from "../shares/tweet/FeedContainer";
-import {fetchTweets, sendTweet} from "../../data/repository/tweetRepository";
-import {Tweet} from "../../data/entities/Tweet";
+import {fetchTweets, sendLikeTweet, sendTweet, sendUnLikeTweet} from "../../data/repository/tweetRepository";
 import {addTweet} from "../../store/slices/tweetsSlice";
 import {fetchUsers} from "../../data/repository/userRepository";
 import {addUsers} from "../../store/slices/usersSlice";
@@ -40,6 +39,22 @@ const Home: React.FC = () => {
         })
     },[dispatch]);
 
+    const likeTweetAction = (tweetId: string) => {
+        sendLikeTweet(currentUser.uid,tweetId).then(() => {
+            dispatch(likeTweet(tweetId));
+        }).catch(e => {
+            console.log(`Error: ${e}`);
+        })
+    };
+
+    const unLikeTweetAction = (tweetId: string) => {
+        sendUnLikeTweet(currentUser.uid,tweetId).then(() => {
+            dispatch(unLikeTweet(tweetId));
+        }).catch(e => {
+            console.log(`Error: ${e}`);
+        })
+    };
+
     return (
         <div className={styles.HomeContainer}>
             <h1 className={styles.HomeTitle}>Home</h1>
@@ -53,7 +68,9 @@ const Home: React.FC = () => {
                 {
                     tweets.length == 0 ? (
                         <div>No Data</div>
-                    ) : <FeedContainer key={`FeedContainer_${currentUser.uid}`} tweets={tweets as Tweet[]} />
+                    ) : <FeedContainer key={`FeedContainer_${currentUser.uid}`} tweets={tweets}
+                        likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
+                    />
                 }
             </div>
         </div>

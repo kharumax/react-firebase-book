@@ -5,7 +5,6 @@ import { Switch,Route,NavLink,useHistory } from "react-router-dom";
 import {User} from "../../data/entities/User";
 import {useDispatch, useSelector} from "react-redux";
 import FeedContainer from "../shares/tweet/FeedContainer";
-import {Tweet} from "../../data/entities/Tweet";
 import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets,follow,unFollow} from "../../store/slices/profileSlice";
 import {selectUser} from "../../store/slices/userSlice";
 import LoadingPage from "../LoadingPage";
@@ -94,6 +93,14 @@ const Profile: React.FC<PROPS> = (props) => {
         }).catch(e => {
             console.log(`Error: ${e}`)
         })
+    };
+
+    const likeTweetAction = (tweetId: string) => {
+
+    };
+
+    const unLikeTweetAction = (tweetId: string) => {
+
     };
 
     const handleLikesTweetsButton = () => {
@@ -185,13 +192,19 @@ const Profile: React.FC<PROPS> = (props) => {
                         <div className={styles.ProfileFeedContentContainer}>
                             <Switch>
                                 <Route exact path={`/${props.user.uid}`}>
-                                    <FeedContainer key={`userTweets_${currentUser.uid}`} tweets={profile.tweets as Tweet[]}/>
+                                    <FeedContainer key={`userTweets_${currentUser.uid}`} tweets={profile.tweets}
+                                                    likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
+                                    />
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/likes`}>
-                                    <FeedContainer key={`userLikes_${currentUser.uid}`} tweets={profile.likeTweets as Tweet[]}/>
+                                    <FeedContainer key={`userLikes_${currentUser.uid}`} tweets={profile.likeTweets}
+                                                   likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
+                                    />
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/comments`}>
-                                    <FeedContainer key={`userComments_${currentUser.uid}`} tweets={profile.commentTweets as Tweet[]}/>
+                                    <FeedContainer key={`userComments_${currentUser.uid}`} tweets={profile.commentTweets}
+                                                   likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
+                                    />
                                 </Route>
                             </Switch>
                         </div>

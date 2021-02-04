@@ -3,7 +3,7 @@ import styles from "../../styles/explore/Explore.module.css";
 import SearchIcon from "../../images/search_icon.png";
 import {NavLink,Switch,Route,useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTweets,searchTweets} from "../../store/slices/tweetsSlice";
+import {selectTweets,searchTweets,likeTweet,unLikeTweet} from "../../store/slices/tweetsSlice";
 import FeedContainer from "../shares/tweet/FeedContainer";
 import UsersContainer from "../shares/users/UsersContainer";
 import {selectUsers,addUsers,searchUsers,followUser,unFollowUser} from "../../store/slices/usersSlice";
@@ -43,6 +43,14 @@ const Explore: React.FC = () => {
                 window.location.href = `/explore/search?q=${keyword}`
             }
         }
+    };
+
+    const likeTweetAction = (tweetId: string) => {
+        dispatch(likeTweet(tweetId))
+    };
+
+    const unLikeTweetAction = (tweetId: string) => {
+        dispatch(unLikeTweet(tweetId))
     };
 
     const followAction = (uid: string) => {
@@ -101,10 +109,10 @@ const Explore: React.FC = () => {
             <div className={styles.ExploreContainer}>
                 <Switch>
                     <Route exact path="/explore">
-                        <FeedContainer key="explore_tweets" tweets={tweets}/>
+                        <FeedContainer key="explore_tweets" tweets={tweets} likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}/>
                     </Route>
                     <Route path="/explore/search">
-                        <FeedContainer key="explore_tweets" tweets={tweets}/>
+                        <FeedContainer key="explore_tweets" tweets={tweets} likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}/>
                     </Route>
                     <Route exact path="/explore/users">
                         <UsersContainer key="explore_users" users={users} followAction={followAction} unFollowAction={unFollowAction}/>

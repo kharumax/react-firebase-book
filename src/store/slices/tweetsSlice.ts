@@ -26,13 +26,21 @@ export const tweetsSlice = createSlice({
             newTweets.unshift(action.payload);
             state.tweets = newTweets
         },
+        searchTweets: (state,action: {payload: string}) => {
+            const keyword = action.payload.toLowerCase();
+            state.tweets = state.tweets.filter(tweet => (
+                tweet.username.toLowerCase().includes(keyword) || tweet.fullname.toLowerCase().includes(keyword) ||
+                tweet.text.toLowerCase().includes(keyword)
+            ))
+        }
     }
 });
 
-export const { addTweets,addTweet } = tweetsSlice.actions;
+export const { addTweets,addTweet,searchTweets } = tweetsSlice.actions;
 
 export const selectTweets = (state: RootState) => state.tweets.tweets;
 // 中間の user は storeのreducerの名称を指している
 // 最後の user は userSliceのstateであるuserを指している
 
 export default tweetsSlice.reducer;
+

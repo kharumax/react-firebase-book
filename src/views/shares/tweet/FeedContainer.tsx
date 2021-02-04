@@ -9,12 +9,8 @@ interface PROPS {
 
 const FeedContainer: React.FC<PROPS> = (props) => {
 
-    useEffect(() => {
-        console.log(`DEBUG: This is Tweets ${props.tweets} at FeedContainer.tsx`);
-    },[props]);
-
     const feed = props.tweets.map((tweet) => (
-        <div className={styles.FeedContainerTweetCell}>
+        <div className={styles.FeedContainerTweetCell} key={tweet.id}>
             <TweetCell key={tweet.id} tweet={tweet}/>
         </div>
     ));

@@ -1,16 +1,11 @@
 
-# react-book
+# React-Firebase-Sns
 
-### Redux-Toolkit & Firebase
-### フォルダ構成
-    store
-     - ここでFirebaseを読み出してStateを管理する
-    utils
-     - 定数や拡張関数を記載
-    views
-     - ui
-    styles
-     - viewのそれぞれのCSSを定義する
-   
+## Firebaseを利用したSNSアプリ
+
+## 使用技術
+1. Firebase  
+2. Redux-Toolkit
+3. Hooks
    
 

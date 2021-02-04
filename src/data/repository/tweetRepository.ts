@@ -18,7 +18,6 @@ export const fetchTweets = async (currentUid: string): Promise<Tweet[]> => {
     try {
         const tweetDocs = tweetsRef.orderBy("timestamp","desc");
         const tweets = await fetchTweetsByOption(tweetDocs,currentUid);
-        console.log(`DEBUG: tweets[0].id is ${tweets[0].id} at fetchUserPostTweets`);
         return Promise.resolve(tweets)
     } catch (e) {
         return Promise.reject(e)
@@ -38,7 +37,6 @@ export const fetchTweetsByOption = async (ref: firebase.firestore.Query<firebase
             });
             const isLiked = isLikedDocs.length != 0; // isLikedDocsはいいねしたユーザーのUidのDocumentを取得する
             const tweet = buildTweet(doc.data(),likeDocs.size,commentDocs.size,isLiked);
-            console.log(`DEBUG: This is tweet ${tweet.id}`);
             tweets = tweets.concat(tweet)
         });
         // ここで配列のPromiseをそれぞれ非同期で実行する。それぞれ Promise を返すので await で処理が終了するまで待つ
@@ -68,21 +66,6 @@ export const sendTweet = async (user: User,file: File | null,text: string): Prom
     }
 };
 
-export const fetchTweet = async () => {
-
-};
-
-export const fetchTweetIsLiked = async () => {
-
-};
-
-export const fetchTweetLikes = async () => {
-
-};
-
-export const fetchTweetComments = async () => {
-
-};
 
 
 

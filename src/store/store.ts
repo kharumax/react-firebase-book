@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import userReducer from "./slices/userSlice";
 import tweetsReducer from "./slices/tweetsSlice";
 import profileReducer from "./slices/profileSlice";
+import usersReducer from "./slices/usersSlice";
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         tweets: tweetsReducer,
         profile: profileReducer,
+        users: usersReducer
     },
 });
 

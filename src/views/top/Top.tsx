@@ -8,10 +8,9 @@ import ProfileSideBarIcon from "../../images/profile.png";
 import ProfileIcon from "../../images/ironman.jpg";
 import {useDispatch, useSelector} from "react-redux";
 import {selectUser,fetchCurrentUser} from "../../store/slices/userSlice";
-import {fetchUser} from "../../data/repository/userRepository";
+import {fetchUser, fetchUsers} from "../../data/repository/userRepository";
 import LoadingPage from "../LoadingPage";
 import { Switch,Route,NavLink,useLocation } from "react-router-dom";
-import {auth} from "../../config/firebase";
 import Home from "../home/Home";
 import Explore from "../explore/Explore";
 import Messages from "../messages/Messages";
@@ -20,6 +19,7 @@ import {getTitle} from "../../utils/Utils";
 import {fetchTweets} from "../../data/repository/tweetRepository";
 import {addTweets} from "../../store/slices/tweetsSlice";
 import ProfileUpdate from "../profile/ProfileUpdate";
+import {addUsers} from "../../store/slices/usersSlice";
 
 const Top: React.FC = () => {
 
@@ -29,13 +29,17 @@ const Top: React.FC = () => {
     document.title = getTitle(useLocation().pathname);
 
     useEffect(() => {
-        //window.location.href = "/home";
         console.log("DEBUG: useEffect is called at Top.tsx");
         fetchUser(currentUser.uid).then(user => {
             dispatch(fetchCurrentUser(user));
             fetchTweets(currentUser.uid).then(result => {
                 dispatch(addTweets(result));
-                setIsLoading(false)
+                fetchUsers(currentUser.uid).then(result => {
+                    dispatch(addUsers(result));
+                    setIsLoading(false)
+                }).catch(e => {
+                    console.log(`Error: ${e}`)
+                });
             }).catch(error => {
                 console.log(`DEBUG: Error is ${error}`)
             });

@@ -7,7 +7,7 @@ interface PROPS {
     userInfo: UserInfo
 }
 
-const UserCell: React.FC = () => {
+const UserCell: React.FC<PROPS> = (props) => {
 
     const [isFollowed,setIsFollowed] = useState<boolean>(false);
     const [isHover,setIsHover] = useState<boolean>(false);
@@ -22,14 +22,14 @@ const UserCell: React.FC = () => {
 
     return (
         <div className={styles.UserCellContainer}>
-            <img src={ProfileIcon} alt="ProfileIcon" className={styles.UserCellProfileImage}/>
+            <img src={props.userInfo.user.profileImageUrl} alt="ProfileIcon" className={styles.UserCellProfileImage}/>
             <div className={styles.UserCellContent}>
                 <div className={styles.UserCellInnerContent}>
                     <div className={styles.UserCellInfoContent}>
-                        <div className={styles.UserCellFullname}>Ironman</div>
-                        <div className={styles.UserCellUsername}>@ironman</div>
+                        <div className={styles.UserCellFullname}>{props.userInfo.user.fullname}</div>
+                        <div className={styles.UserCellUsername}>@{props.userInfo.user.username}</div>
                     </div>
-                    { isFollowed ?
+                    { props.userInfo.isFollowed ?
                         <button className={styles.UserCellUnFollowButton} onMouseOver={() => setIsHover(true)} onMouseOut={() => setIsHover(false)}
                             onClick={handleUnFollowButton}
                         >
@@ -42,7 +42,7 @@ const UserCell: React.FC = () => {
                     }
                 </div>
                 <div className={styles.UserCellBio}>
-                    I am IronmanI am IronmanI am IronmanI am IronmanI am IronmanI am IronmanI am IronmanI am IronmanI am IronmanI am Ironman
+                    {props.userInfo.user.bio}
                 </div>
             </div>
         </div>

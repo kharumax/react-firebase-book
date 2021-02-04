@@ -1,18 +1,35 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "../../styles/explore/Explore.module.css";
 import SearchIcon from "../../images/search_icon.png";
-import {NavLink,Switch,Route} from "react-router-dom";
+import {NavLink,Switch,Route,useLocation} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {selectTweets} from "../../store/slices/tweetsSlice";
+import {selectTweets,searchTweets} from "../../store/slices/tweetsSlice";
 import FeedContainer from "../shares/tweet/FeedContainer";
 import UsersContainer from "../shares/users/UsersContainer";
+import {selectUsers,addUsers,searchUsers} from "../../store/slices/usersSlice";
+import {selectUser} from "../../store/slices/userSlice";
+import {fetchUsers} from "../../data/repository/userRepository";
 
 const Explore: React.FC = () => {
 
+    const currentUser = useSelector(selectUser);
     const tweets = useSelector(selectTweets);
+    const users = useSelector(selectUsers);
     const dispatch = useDispatch();
     const [keyword,setKeyword] = useState<string>("");
     const [isFocus,setIsFocus] = useState<boolean>(false);
+    const [isSearch,setIsSearch] = useState<boolean>(false);
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname.includes("search")) {
+            const searchWord = location.search.substr(3);
+            setIsSearch(true);
+            setKeyword(searchWord);
+            dispatch(searchUsers(searchWord));
+            dispatch(searchTweets(searchWord));
+        }
+    },[dispatch]);
 
     const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.target.value);
@@ -21,7 +38,9 @@ const Explore: React.FC = () => {
     const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key == "Enter") {
             e.preventDefault();
-            window.location.href = "/explore/search?q=apple"
+            if (keyword.length != 0) {
+                window.location.href = `/explore/search?q=${keyword}`
+            }
         }
     };
 
@@ -37,20 +56,44 @@ const Explore: React.FC = () => {
                 </form>
             </div>
             <div className={styles.ExploreTabContainer}>
-                <NavLink exact to="/explore" className={styles.ExploreTabItem} activeClassName={styles.ExploreTabItemSelected}>
-                    Tweets
-                </NavLink>
-                <NavLink exact to="/explore/users" className={styles.ExploreTabItem} activeClassName={styles.ExploreTabItemSelected}>
-                    Users
-                </NavLink>
+                {
+                    isSearch ?
+                        (
+                            <>
+                                <NavLink exact to={`/explore/search?q=${keyword}`} className={styles.ExploreTabItem} activeClassName={styles.ExploreTabItemSelected}>
+                                    Tweets
+                                </NavLink>
+                                <NavLink exact to={`/explore/users/search?q=${keyword}`} className={styles.ExploreTabItem} activeClassName={styles.ExploreTabItemSelected}>
+                                    Users
+                                </NavLink>
+                            </>
+                        )
+                        :
+                        (
+                            <>
+                                <NavLink exact to="/explore" className={styles.ExploreTabItem} activeClassName={styles.ExploreTabItemSelected}>
+                                    Tweets
+                                </NavLink>
+                                <NavLink exact to="/explore/users" className={styles.ExploreTabItem} activeClassName={styles.ExploreTabItemSelected}>
+                                    Users
+                                </NavLink>
+                            </>
+                    )
+                }
             </div>
             <div className={styles.ExploreContainer}>
                 <Switch>
                     <Route exact path="/explore">
                         <FeedContainer key="explore_tweets" tweets={tweets}/>
                     </Route>
+                    <Route path="/explore/search">
+                        <FeedContainer key="explore_tweets" tweets={tweets}/>
+                    </Route>
                     <Route exact path="/explore/users">
-                        <UsersContainer key="explore_users"/>
+                        <UsersContainer key="explore_users" users={users}/>
+                    </Route>
+                    <Route path="/explore/users/search">
+                        <UsersContainer key="explore_users" users={users}/>
                     </Route>
                 </Switch>
             </div>

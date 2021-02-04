@@ -1,19 +1,21 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
+const initialUserState = {
+    uid: "",
+    fullname: "",
+    username: "",
+    profileImageUrl: "",
+    backgroundUrl: "",
+    bio: "",
+    isLogin: false,
+};
+
 export const userSlice = createSlice({
    name: "user", // sliceの名称
    initialState: {
        // sliceの初期値
-       user: {
-           uid: "",
-           fullname: "",
-           username: "",
-           profileImageUrl: "",
-           backgroundUrl: "",
-           bio: "",
-           isLogin: false,
-       }
+       user: initialUserState
    },
     // Stateに対して更新処理を定義する場所
    reducers: {
@@ -24,15 +26,7 @@ export const userSlice = createSlice({
            }
        },
        logout: (state) => {
-           state.user = {
-               uid: "",
-               fullname: "",
-               username: "",
-               profileImageUrl: "",
-               backgroundUrl: "",
-               bio: "",
-               isLogin: false,
-           };
+           state.user = initialUserState;
        },
        fetchCurrentUser: (state,action) => {
            const data = action.payload;

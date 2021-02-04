@@ -1,5 +1,8 @@
 import {auth, defaultImageUrl, userRef, usersRef} from "../../config/firebase";
-import {buildUser, User} from "../entities/User";
+import {buildUser, buildUserInfo, User, UserInfo} from "../entities/User";
+import firebase from "firebase";
+import {buildTweet, Tweet} from "../entities/Tweet";
+import {fetchIsFollowed} from "./profileRepository";
 
 export interface Credential {
     fullname: string;
@@ -18,7 +21,6 @@ export interface UpdateCredential {
 }
 
 export const fetchUser = async (uid: string) => {
-    console.log(`DEBUG: uid is ${uid}`);
     const document = await userRef(uid).get();
     if (document.exists && document.data() != undefined) {
         return buildUser(document.data()!);
@@ -28,7 +30,6 @@ export const fetchUser = async (uid: string) => {
 };
 
 export const loginUser = async (email: string,password: string): Promise<string> => {
-    console.log("DEBUG: loginUser is called");
     try {
         const authUser = await auth.signInWithEmailAndPassword(email,password);
         return Promise.resolve(authUser.user!.uid)
@@ -38,23 +39,56 @@ export const loginUser = async (email: string,password: string): Promise<string>
 };
 
 export const signUpUser = async (credential: Credential): Promise<string> => {
-    console.log("DEBUG: signUpUser is called");
     try {
         const authUser = await auth.createUserWithEmailAndPassword(credential.email, credential.password);
-        console.log(`DEBUG: authUser is success at userRepository`);
         await userRef(authUser.user!.uid).set({
             uid: authUser.user!.uid,fullname: credential.fullname,username: credential.username,
             bio: "",profileImageUrl: defaultImageUrl,backgroundUrl: ""
         });
-        console.log(`DEBUG: setUser is success at userRepository`);
         return Promise.resolve(authUser.user!.uid)
     } catch (error) {
         return Promise.reject(error)
     }
 };
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (currentUid: string): Promise<UserInfo[]> => {
+    try {
+        const users = await fetchUsersByOption(usersRef,currentUid);
 
+        return Promise.resolve(users);
+    } catch (e) {
+        return Promise.reject(e);
+    }
+};
+
+export const searchUsers = async (currentUid: string) => {
+    try {
+        //const ref = usersRef.where()
+    } catch (e) {
+
+    }
+};
+
+export const fetchUsersByOption = async (ref: firebase.firestore.Query<firebase.firestore.DocumentData>,currentUid: string): Promise<UserInfo[]> => {
+    try {
+        const userDocs = await ref.get();
+        let users: UserInfo[] = [];
+
+        const usersPromises = userDocs.docs.map(async doc => {
+            if (doc.id != currentUid) {
+                const user = buildUser(doc.data());
+                const isFollowed = await fetchIsFollowed(currentUid,doc.id);
+                const userInfo = buildUserInfo(user,isFollowed);
+                users = users.concat(userInfo);
+            }
+        });
+        await Promise.all(usersPromises);
+
+        return Promise.resolve(users)
+
+    } catch (e) {
+        return Promise.reject(e)
+    }
 };
 
 

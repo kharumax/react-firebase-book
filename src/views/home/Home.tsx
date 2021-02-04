@@ -8,6 +8,8 @@ import FeedContainer from "../shares/tweet/FeedContainer";
 import {fetchTweets, sendTweet} from "../../data/repository/tweetRepository";
 import {Tweet} from "../../data/entities/Tweet";
 import {addTweet} from "../../store/slices/tweetsSlice";
+import {fetchUsers} from "../../data/repository/userRepository";
+import {addUsers} from "../../store/slices/usersSlice";
 
 
 const Home: React.FC = () => {
@@ -26,9 +28,13 @@ const Home: React.FC = () => {
     };
 
     useEffect( () => {
-        console.log("DEBUG: useEffect is called at Home.tsx");
         fetchTweets(currentUser.uid).then(result => {
-            dispatch(addTweets(result))
+            dispatch(addTweets(result));
+            fetchUsers(currentUser.uid).then(result => {
+                dispatch(addUsers(result));
+            }).catch(e => {
+                console.log(`Error: ${e}`)
+            });
         }).catch(error => {
             console.log(`DEBUG: Error is ${error}`)
         })

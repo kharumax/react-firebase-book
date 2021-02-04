@@ -1,4 +1,4 @@
-import {auth, defaultImageUrl, userRef, usersRef} from "../../config/firebase";
+import {auth, defaultImageUrl, followersRef, followingRef, userRef, usersRef} from "../../config/firebase";
 import {buildUser, buildUserInfo, User, UserInfo} from "../entities/User";
 import firebase from "firebase";
 import {buildTweet, Tweet} from "../entities/Tweet";
@@ -91,6 +91,30 @@ export const fetchUsersByOption = async (ref: firebase.firestore.Query<firebase.
     }
 };
 
+/*
+users - uid - following - uid
+            - followers - uid
+*/
+
+export const sendFollowUser = async (currentUid: string,uid: string): Promise<boolean> => {
+    try {
+        await followingRef(currentUid).doc(uid).set({});
+        await followersRef(uid).doc(currentUid).set({});
+        return Promise.resolve(true);
+    } catch (e) {
+        return Promise.reject(e)
+    }
+};
+
+export const sendUnFollowUser = async (currentUid: string,uid: string): Promise<boolean> => {
+    try {
+        await followingRef(currentUid).doc(uid).delete();
+        await followersRef(uid).doc(currentUid).delete();
+        return Promise.resolve(false);
+    } catch (e) {
+        return Promise.reject(e)
+    }
+};
 
 
 

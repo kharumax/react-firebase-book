@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
 import {UserInfo} from "../../../data/entities/User";
 import styles from "../../../styles/shares/users/UserCell.module.css";
+import {TFollowAction, TUnFollowAction} from "../../../store/slices/usersSlice";
 
 interface PROPS {
     userInfo: UserInfo
+    followAction: TFollowAction
+    unFollowAction: TUnFollowAction
 }
 
 const UserCell: React.FC<PROPS> = (props) => {
@@ -11,11 +14,11 @@ const UserCell: React.FC<PROPS> = (props) => {
     const [isHover,setIsHover] = useState<boolean>(false);
 
     const handleFollowButton = () => {
-
+        props.followAction(props.userInfo.user.uid)
     };
 
     const handleUnFollowButton = () => {
-
+        props.unFollowAction(props.userInfo.user.uid)
     };
 
     return (

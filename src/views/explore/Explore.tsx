@@ -6,9 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectTweets,searchTweets} from "../../store/slices/tweetsSlice";
 import FeedContainer from "../shares/tweet/FeedContainer";
 import UsersContainer from "../shares/users/UsersContainer";
-import {selectUsers,addUsers,searchUsers} from "../../store/slices/usersSlice";
+import {selectUsers,addUsers,searchUsers,followUser,unFollowUser} from "../../store/slices/usersSlice";
 import {selectUser} from "../../store/slices/userSlice";
-import {fetchUsers} from "../../data/repository/userRepository";
+import {fetchUsers, sendFollowUser, sendUnFollowUser} from "../../data/repository/userRepository";
 
 const Explore: React.FC = () => {
 
@@ -22,6 +22,7 @@ const Explore: React.FC = () => {
     const location = useLocation();
 
     useEffect(() => {
+        console.log(`DEBUG: useEffect is called at Explore.tsx`);
         if (location.pathname.includes("search")) {
             const searchWord = location.search.substr(3);
             setIsSearch(true);
@@ -42,6 +43,22 @@ const Explore: React.FC = () => {
                 window.location.href = `/explore/search?q=${keyword}`
             }
         }
+    };
+
+    const followAction = (uid: string) => {
+        sendFollowUser(currentUser.uid,uid).then(() => {
+            dispatch(followUser(uid));
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        });
+    };
+
+    const unFollowAction = (uid: string) => {
+        sendUnFollowUser(currentUser.uid,uid).then(() => {
+            dispatch(unFollowUser(uid));
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        });
     };
 
     return (
@@ -90,10 +107,10 @@ const Explore: React.FC = () => {
                         <FeedContainer key="explore_tweets" tweets={tweets}/>
                     </Route>
                     <Route exact path="/explore/users">
-                        <UsersContainer key="explore_users" users={users}/>
+                        <UsersContainer key="explore_users" users={users} followAction={followAction} unFollowAction={unFollowAction}/>
                     </Route>
                     <Route path="/explore/users/search">
-                        <UsersContainer key="explore_users" users={users}/>
+                        <UsersContainer key="explore_users" users={users} followAction={followAction} unFollowAction={unFollowAction}/>
                     </Route>
                 </Switch>
             </div>

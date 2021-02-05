@@ -1,4 +1,4 @@
-import {tweetsRef} from "../../config/firebase";
+import {tweetLikedUserRef, tweetsRef, userLikesTweetRef} from "../../config/firebase";
 import {buildTweet, Tweet} from "../entities/Tweet";
 import {User} from "../entities/User";
 import {FirestoreTimestampToString, readNowTimestamp, uploadImage} from "../../utils/Utils";
@@ -66,6 +66,25 @@ export const sendTweet = async (user: User,file: File | null,text: string): Prom
     }
 };
 
+export const sendLikeTweet = async (currentUid: string,tweetId: string): Promise<void> => {
+    try {
+        await userLikesTweetRef(currentUid).doc(tweetId).set({});
+        await tweetLikedUserRef(tweetId).doc(currentUid).set({});
+        return Promise.resolve();
+    } catch (e) {
+        return Promise.reject(e);
+    }
+};
+
+export const sendUnLikeTweet = async (currentUid: string,tweetId: string): Promise<void> => {
+    try {
+        await userLikesTweetRef(currentUid).doc(tweetId).delete();
+        await tweetLikedUserRef(tweetId).doc(currentUid).delete();
+        return Promise.resolve();
+    } catch (e) {
+        return Promise.reject(e);
+    }
+};
 
 
 

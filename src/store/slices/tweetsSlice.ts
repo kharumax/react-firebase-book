@@ -34,10 +34,24 @@ export const tweetsSlice = createSlice({
             ))
         },
         likeTweet: (state,action) => {
-
+            const tweetId = action.payload;
+            state.tweets = state.tweets.map(tweet => {
+                if (tweet.id == tweetId) {
+                    tweet.isLiked = true;
+                    tweet.likes += 1;
+                }
+                return tweet;
+            })
         },
         unLikeTweet: (state,action) => {
-
+            const tweetId = action.payload;
+            state.tweets = state.tweets.map(tweet => {
+                if (tweet.id == tweetId) {
+                    tweet.isLiked = false;
+                    tweet.likes -= 1;
+                }
+                return tweet;
+            })
         }
     }
 });
@@ -48,5 +62,5 @@ export const selectTweets = (state: RootState) => state.tweets.tweets;
 
 export default tweetsSlice.reducer;
 
-export type TLikeTweetAction = (tweetId: string) => void;
-export type TUnLikeTweetAction = (tweetId: string) => void;
+export type TLikeTweetAction = (tweetId: string,type?: string) => void;
+export type TUnLikeTweetAction = (tweetId: string,type?: string) => void;

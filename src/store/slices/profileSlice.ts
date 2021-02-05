@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {RootState} from "../store";
 import {FirestoreTimestampToString} from "../../utils/Utils";
+import {Tweet} from "../../data/entities/Tweet";
 
 const nowDate = new Date();
 
@@ -59,10 +60,52 @@ export const profileSlice = createSlice({
         updateUserProfile: (state,action) => {
             state.user = action.payload;
         },
+        likeTweetByOption: (state,action: {payload: {tweetId: string,type: string}}) => {
+            const type = action.payload.type;
+            if (type == "post") {
+                state.tweets = likeTweetByType(state.tweets,action.payload.tweetId)
+            } else if (type == "like") {
+                state.likeTweets = likeTweetByType(state.likeTweets,action.payload.tweetId)
+            } else if (type == "comment") {
+                state.commentTweets = likeTweetByType(state.commentTweets,action.payload.tweetId)
+            }
+        },
+        unLikeTweetByOption: (state,action: {payload: {tweetId: string,type: string}}) => {
+            const type = action.payload.type;
+            if (type == "post") {
+                state.tweets = unLikeTweetByType(state.tweets,action.payload.tweetId)
+            } else if (type == "like") {
+                state.likeTweets = unLikeTweetByType(state.likeTweets,action.payload.tweetId)
+            } else if (type == "comment") {
+                state.commentTweets = unLikeTweetByType(state.commentTweets,action.payload.tweetId)
+            }
+        },
     }
 });
 
-export const { addUser,follow,unFollow,addTweets,addLikeTweets,addCommentTweets,updateUserProfile } = profileSlice.actions;
+const likeTweetByType = (tweets: Tweet[],tweetId: string): Tweet[] => {
+    return tweets.map(tweet => {
+        if (tweet.id == tweetId) {
+            tweet.isLiked = true;
+            tweet.likes += 1;
+        }
+        return tweet
+    });
+};
+
+const unLikeTweetByType = (tweets: Tweet[],tweetId: string): Tweet[] => {
+    return tweets.map(tweet => {
+        if (tweet.id == tweetId) {
+            tweet.isLiked = false;
+            tweet.likes -= 1;
+        }
+        return tweet
+    });
+};
+
+
+
+export const { addUser,follow,unFollow,addTweets,addLikeTweets,addCommentTweets,updateUserProfile,likeTweetByOption,unLikeTweetByOption } = profileSlice.actions;
 
 export const selectProfile = (state: RootState) => state.profile;
 

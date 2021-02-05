@@ -59,8 +59,8 @@ export const fetchUserLikeTweets = async (uid: string,currentUid: string): Promi
         if (userLikesTweetDocs.docs.length == 0) {
             return Promise.resolve(tweets)
         }
-        userLikesTweetDocs.docs.map((doc => doc.id));
-        const tweetDocs = tweetsRef.where("id","in",userLikesTweetDocs);
+        const likeTweetIds = userLikesTweetDocs.docs.map((doc => doc.id));
+        const tweetDocs = tweetsRef.where("id","in",likeTweetIds);
         tweets = await fetchTweetsByOption(tweetDocs, currentUid);
         return Promise.resolve(tweets)
     } catch (e) {
@@ -71,12 +71,12 @@ export const fetchUserLikeTweets = async (uid: string,currentUid: string): Promi
 export const fetchUserCommentTweets = async (uid: string,currentUid: string): Promise<Tweet[]> => {
     try {
         let tweets: Tweet[] = [];
-        const userLikesTweetDocs = await userCommentsTweetRef(uid).get();
-        if (userLikesTweetDocs.docs.length == 0) {
+        const userCommentTweetDocs = await userCommentsTweetRef(uid).get();
+        if (userCommentTweetDocs.docs.length == 0) {
             return Promise.resolve(tweets)
         }
-        userLikesTweetDocs.docs.map((doc => doc.id));
-        const tweetDocs = tweetsRef.where("id","in",userLikesTweetDocs);
+        const commentTweetIds = userCommentTweetDocs.docs.map((doc => doc.id));
+        const tweetDocs = tweetsRef.where("id","in",commentTweetIds);
         tweets = await fetchTweetsByOption(tweetDocs, currentUid);
         return Promise.resolve(tweets)
     } catch (e) {

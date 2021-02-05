@@ -5,7 +5,7 @@ import { Switch,Route,NavLink,useHistory } from "react-router-dom";
 import {User} from "../../data/entities/User";
 import {useDispatch, useSelector} from "react-redux";
 import FeedContainer from "../shares/tweet/FeedContainer";
-import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets,follow,unFollow} from "../../store/slices/profileSlice";
+import {selectProfile,addUser,addTweets,addLikeTweets,addCommentTweets,follow,unFollow,likeTweetByOption,unLikeTweetByOption} from "../../store/slices/profileSlice";
 import {selectUser} from "../../store/slices/userSlice";
 import LoadingPage from "../LoadingPage";
 import { followUser,unFollowUser } from "../../store/slices/usersSlice";
@@ -17,6 +17,7 @@ import {
     fetchUserPostTweets,
 } from "../../data/repository/profileRepository";
 import {sendFollowUser, sendUnFollowUser} from "../../data/repository/userRepository";
+import {sendLikeTweet, sendUnLikeTweet} from "../../data/repository/tweetRepository";
 
 interface PROPS {
     user: User
@@ -95,12 +96,22 @@ const Profile: React.FC<PROPS> = (props) => {
         })
     };
 
-    const likeTweetAction = (tweetId: string) => {
-
+    const likeTweetAction = (tweetId: string,type?: string) => {
+        if (type == undefined) return;
+        sendLikeTweet(currentUser.uid,tweetId).then(() => {
+            dispatch(likeTweetByOption({tweetId: tweetId,type: type}))
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        })
     };
 
-    const unLikeTweetAction = (tweetId: string) => {
-
+    const unLikeTweetAction = (tweetId: string,type?: string) => {
+        if (type == undefined) return;
+        sendUnLikeTweet(currentUser.uid,tweetId).then(() => {
+            dispatch(unLikeTweetByOption({tweetId: tweetId,type: type}))
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        })
     };
 
     const handleLikesTweetsButton = () => {
@@ -193,17 +204,17 @@ const Profile: React.FC<PROPS> = (props) => {
                             <Switch>
                                 <Route exact path={`/${props.user.uid}`}>
                                     <FeedContainer key={`userTweets_${currentUser.uid}`} tweets={profile.tweets}
-                                                    likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
+                                                    likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction} type={"post"}
                                     />
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/likes`}>
                                     <FeedContainer key={`userLikes_${currentUser.uid}`} tweets={profile.likeTweets}
-                                                   likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
+                                                   likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction} type={"like"}
                                     />
                                 </Route>
                                 <Route exact path={`/${props.user.uid}/comments`}>
                                     <FeedContainer key={`userComments_${currentUser.uid}`} tweets={profile.commentTweets}
-                                                   likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
+                                                   likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction} type={"comment"}
                                     />
                                 </Route>
                             </Switch>

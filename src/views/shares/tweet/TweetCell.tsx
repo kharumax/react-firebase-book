@@ -11,18 +11,19 @@ interface PROPS {
     tweet: Tweet
     likeTweetAction: TLikeTweetAction
     unLikeTweetAction: TUnLikeTweetAction
+    type?: string
 }
 
 const TweetCell: React.FC<PROPS> = (props) => {
 
     const likeTweetAction = (e: React.MouseEvent<HTMLImageElement>) => {
         e.stopPropagation();
-        props.likeTweetAction(props.tweet.id)
+        props.likeTweetAction(props.tweet.id,props.type)
     };
 
     const unLikeTweetAction = (e: React.MouseEvent<HTMLImageElement>) => {
         e.stopPropagation();
-        props.unLikeTweetAction(props.tweet.id)
+        props.unLikeTweetAction(props.tweet.id,props.type)
     };
 
     return (

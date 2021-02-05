@@ -62,5 +62,5 @@ export const selectTweets = (state: RootState) => state.tweets.tweets;
 
 export default tweetsSlice.reducer;
 
-export type TLikeTweetAction = (tweetId: string) => void;
-export type TUnLikeTweetAction = (tweetId: string) => void;
+export type TLikeTweetAction = (tweetId: string,type?: string) => void;
+export type TUnLikeTweetAction = (tweetId: string,type?: string) => void;

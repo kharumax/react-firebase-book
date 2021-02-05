@@ -8,13 +8,14 @@ interface PROPS {
     tweets: Tweet[]
     likeTweetAction: TLikeTweetAction
     unLikeTweetAction: TUnLikeTweetAction
+    type?: string
 }
 
 const FeedContainer: React.FC<PROPS> = (props) => {
 
     const feed = props.tweets.map((tweet) => (
         <div className={styles.FeedContainerTweetCell} key={tweet.id}>
-            <TweetCell key={tweet.id} tweet={tweet} likeTweetAction={props.likeTweetAction} unLikeTweetAction={props.unLikeTweetAction}/>
+            <TweetCell key={tweet.id} tweet={tweet} likeTweetAction={props.likeTweetAction} unLikeTweetAction={props.unLikeTweetAction} type={props.type}/>
         </div>
     ));
 

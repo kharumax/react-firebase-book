@@ -1,0 +1,46 @@
+
+.CommentCellContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    padding: 16px;
+}
+
+.CommentCellProfileImage {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+}
+
+.CommentCellContent {
+    margin-left: 16px;
+}
+
+.CommentCellUserInfo {
+    display: flex;
+}
+
+.CommentCelFullname {
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.CommentCellUsername {
+    margin-left: 8px;
+    color: #707070;
+    font-size: 18px;
+}
+
+.CommentCellTimestamp {
+    margin-left: 8px;
+    color: #707070;
+    font-size: 18px;
+}
+
+.CommentCellText {
+    margin-top: 8px;
+    font-size: 20px;
+    color: white;
+}
+

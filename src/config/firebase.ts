@@ -46,6 +46,10 @@ export const userCommentsTweetRef = (id: string) => {
     return userRef(id).collection("comments")
 };
 
+export const tweetCommentsRef = (tweetId: string) => {
+    return tweetRef(tweetId).collection("comments");
+};
+
 export const tweetLikedUserRef = (tweetId: string) => {
     return tweetRef(tweetId).collection("likes")
 };

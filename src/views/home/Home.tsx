@@ -67,7 +67,7 @@ const Home: React.FC = () => {
             <div className={styles.HomeFeedContainer}>
                 {
                     tweets.length == 0 ? (
-                        <div>No Data</div>
+                        <div/>
                     ) : <FeedContainer key={`FeedContainer_${currentUser.uid}`} tweets={tweets}
                         likeTweetAction={likeTweetAction} unLikeTweetAction={unLikeTweetAction}
                     />

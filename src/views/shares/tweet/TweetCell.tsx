@@ -26,8 +26,16 @@ const TweetCell: React.FC<PROPS> = (props) => {
         props.unLikeTweetAction(props.tweet.id,props.type)
     };
 
+    const handleCommentButton = (e: React.MouseEvent<HTMLImageElement>) => {
+        e.stopPropagation();
+    };
+
+    const handleTweetCellClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        window.location.href = `/${props.tweet.username}/status/${props.tweet.id}`;
+    };
+
     return (
-        <div className={styles.TweetCellContainer}>
+        <div className={styles.TweetCellContainer} onClick={handleTweetCellClick}>
             <img src={props.tweet.profileImageUrl} alt="ProfileIcon" className={styles.TweetCellProfileImage}/>
             <div className={styles.TweetCellContentContainer}>
                 <div className={styles.TweetCellTweetInfo}>
@@ -45,7 +53,7 @@ const TweetCell: React.FC<PROPS> = (props) => {
                 }
                 <div className={styles.TweetCellActionBar}>
                     <div className={styles.TweetCellActionItem}>
-                        <img src={CommentIcon} alt="ActionIcon" className={styles.TweetCellActionItemImage}/>
+                        <img src={CommentIcon} alt="ActionIcon" className={styles.TweetCellActionItemImage} onClick={handleCommentButton}/>
                         <div className={styles.TweetCellActionItemCount}>{props.tweet.comments}</div>
                     </div>
                     <div className={styles.TweetCellActionItem}>

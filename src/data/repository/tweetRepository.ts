@@ -1,8 +1,9 @@
-import {tweetLikedUserRef, tweetsRef, userLikesTweetRef} from "../../config/firebase";
+import {tweetCommentsRef, tweetLikedUserRef, tweetRef, tweetsRef, userLikesTweetRef} from "../../config/firebase";
 import {buildTweet, Tweet} from "../entities/Tweet";
 import {User} from "../entities/User";
 import {FirestoreTimestampToString, readNowTimestamp, uploadImage} from "../../utils/Utils";
 import firebase from "firebase/app";
+import {buildComment, Comment} from "../entities/Comment";
 
 /*
 * Data Structure
@@ -21,6 +22,30 @@ export const fetchTweets = async (currentUid: string): Promise<Tweet[]> => {
         return Promise.resolve(tweets)
     } catch (e) {
         return Promise.reject(e)
+    }
+};
+
+interface ITweetDetail {
+    tweet: Tweet
+    comments: Comment[]
+}
+
+export const fetchTweetDetail = async (tweetId: string,currentUid: string): Promise<ITweetDetail> => {
+    try {
+        const tweetDoc = await tweetRef(tweetId).get();
+        const likeDocs = await tweetLikedUserRef(tweetId).get();
+        const commentDocs = await tweetCommentsRef(tweetId).get();
+        const isLiked = likeDocs.docs.filter(doc => {
+            return doc.id == currentUid
+        }).length != 0;
+        const tweet = buildTweet(tweetDoc.data()!,likeDocs.size,commentDocs.size,isLiked);
+        const comments: Comment[] = commentDocs.docs.map(doc => {
+            return buildComment(doc.data())
+        });
+        const tweetDetail: ITweetDetail = {tweet: tweet,comments: comments};
+        return Promise.resolve(tweetDetail)
+    } catch (e) {
+        return Promise.reject(e);
     }
 };
 

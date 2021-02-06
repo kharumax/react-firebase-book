@@ -1,0 +1,90 @@
+
+
+.CommentFormContainer {
+    width: 600px;
+    height: 500px;
+    border-radius: 30px;
+    background-color: #0F171E;
+}
+
+.CommentFormHeader {
+    display: flex;
+    width: 100%;
+    height: 64px;
+    border-bottom: 1px solid #383838;
+    justify-content: space-between;
+}
+
+.CommentFormCancelButton {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    font-size: 40px;
+    font-weight: bold;
+    color: #1DA2F1;
+    border-width: 0;
+    margin-left: 16px;
+    margin-top: 8px;
+    cursor: pointer;
+    outline: none;
+}
+
+.CommentFormReplyButton {
+    width: 100px;
+    height: 40px;
+    background-color: #1DA2F1;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 20px;
+    border-width: 0;
+    margin-top: 12px;
+    margin-right: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+.CommentFormReplyButtonDisabled {
+    width: 100px;
+    height: 40px;
+    background-color: #1DA2F1;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 20px;
+    border-width: 0;
+    margin-top: 12px;
+    margin-right: 16px;
+    cursor: pointer;
+    opacity: 0.5;
+    outline: none;
+}
+
+.CommentFormReplyTextField {
+    background-color: transparent;
+    width: 568px;
+    margin: 16px;
+    border-width: 0;
+    font-size: 24px;
+    color: white;
+    line-height: 120%;
+    resize: none;
+}
+
+.CommentFormReplyTextField:focus {
+    outline: none;
+}
+
+.CommentFormTextCountContainer {
+    width: 100%;
+    position: relative;
+}
+
+.CommentFormTextCount {
+    position: absolute;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    top: 0;
+    right: 16px;
+}

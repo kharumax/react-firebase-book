@@ -1,0 +1,10 @@
+
+.CommentContainer {
+    width: 100%;
+    height: 100%;
+}
+
+.CommentContainerCell {
+    width: 100%;
+    border-bottom: 1px solid #383838;
+}

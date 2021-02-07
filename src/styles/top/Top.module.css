@@ -191,9 +191,6 @@ body {
 }
 
 
-
-
-
 /* 25% */
 .TopCenterContainer {
     overflow: auto;
@@ -211,12 +208,75 @@ body {
 .TopRightContainer {
     height: 100%;
     width: 25%;
-    /*background-color: lightgray;*/
     position: sticky;
     position: -webkit-sticky;
     top: 0;
     left: 65%;
 }
+
+.TopSearchContainer {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.TopSearchForm {
+    background-color: #191919;
+    /*202427*/
+    display: flex;
+    height: 50px;
+    width: 450px;
+    border-radius: 30px;
+    margin-left: 24px;
+}
+
+.TopSearchFormOnFocus {
+    background-color: #191919;
+    display: flex;
+    height: 50px;
+    width: 450px;
+    border-radius: 30px;
+    margin-left: 24px;
+    border: 1px solid #1DA2F1;
+}
+
+.TopSearchIcon {
+    width: 30px;
+    height: 30px;
+    margin-left: 16px;
+    padding-top: 10px;
+    margin-right: 8px;
+}
+
+.TopSearchIconOnFocus {
+    width: 30px;
+    height: 30px;
+    margin-left: 16px;
+    padding-top: 10px;
+    margin-right: 8px;
+    filter: invert(50%) sepia(26%) saturate(3814%) hue-rotate(177deg) brightness(102%) contrast(89%);
+}
+
+.TopSearchInput {
+    width: 380px;
+    background-color: #191919;
+    height: 48px;
+    border-width: 0;
+    color: white;
+    font-size: 20px;
+    border-radius: 20px;
+}
+
+.TopSearchInput:focus {
+    outline: none;
+}
+
+.TopRightSideBarContainer {
+    width: 450px;
+    height: 430px;
+    margin-left: 24px;
+    margin-top: 24px;
+}
+
 
 /* 90% */
 .TopRightSpaceContainer {

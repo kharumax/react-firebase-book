@@ -13,6 +13,7 @@ export const sendComment = async (user: User,tweetId: string,text: string): Prom
         /**
          * readNowTimestamp()はFirestoreのFiledValueを返すのでReactで描画することができない
          * なので、FirestoreTimestampToStringで描画できるように再度設定している
+         * Objects are not valid as React child (found: ~~ ) ~~ use an array instead.
          * **/
         const comment: Comment = {
             id: ref.id, uid: user.uid, fullname: user.fullname, username: user.username, profileImageUrl: user.profileImageUrl,

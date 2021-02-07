@@ -22,12 +22,17 @@ import ProfileUpdate from "../profile/ProfileUpdate";
 import {addUsers} from "../../store/slices/usersSlice";
 import UserProfile from "../profile/UserProfile";
 import TweetDetail from "../shares/tweet/TweetDetail";
+import TweetsSideBar from "./sidebar/tweet/TweetsSideBar";
+import UsersSideBar from "./sidebar/user/UsersSideBar";
+import SearchIcon from "../../images/search_icon.png";
 
 const Top: React.FC = () => {
 
     const currentUser = useSelector(selectUser);
     const dispatch = useDispatch();
-    const [isLoading,setIsLoading] = useState(true);
+    const [isLoading,setIsLoading] = useState<boolean>(true);
+    const [isFocus,setIsFocus] = useState<boolean>(false);
+    const [keyword,setKeyword] = useState<string>("");
     document.title = getTitle(useLocation().pathname);
 
     useEffect(() => {
@@ -50,6 +55,19 @@ const Top: React.FC = () => {
 
     const profileImage = () => {
         return currentUser.profileImageUrl ? currentUser.profileImageUrl : ProfileIcon
+    };
+
+    const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setKeyword(e.target.value);
+    };
+
+    const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key == "Enter") {
+            e.preventDefault();
+            if (keyword.length != 0) {
+                window.location.href = `/explore/search?q=${keyword}`
+            }
+        }
     };
 
     return (
@@ -104,7 +122,7 @@ const Top: React.FC = () => {
                             <Route path="/explore">
                                 <Explore/>
                             </Route>
-                            <Route exact path="/messages">
+                            <Route path="/messages">
                                 <Messages/>
                             </Route>
                             <Route path={`/${currentUser.uid}`}>
@@ -117,7 +135,23 @@ const Top: React.FC = () => {
                             <Route path="/:uid" component={UserProfile}/>
                         </Switch>
                     </div>
-                    <div className={styles.TopRightContainer}/>
+                    <div className={styles.TopRightContainer}>
+                        <div className={styles.TopSearchContainer}>
+                            <form className={isFocus ? styles.TopSearchFormOnFocus : styles.TopSearchForm}>
+                                <img src={SearchIcon} alt="SearchIcon" className={isFocus ?  styles.TopSearchIconOnFocus : styles.TopSearchIcon}/>
+                                <input type="text" placeholder="Search Twitter" className={styles.TopSearchInput}
+                                       onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)}
+                                       onKeyPress={handleOnKeyPress} value={keyword} onChange={handleChangeKeyword}
+                                />
+                            </form>
+                        </div>
+                        <div className={styles.TopTweetsSideBarContainer}>
+                            <TweetsSideBar/>
+                        </div>
+                        <div className={styles.TopUsersSideBarContainer}>
+                            <UsersSideBar/>
+                        </div>
+                    </div>
                     <div className={styles.TopRightSpaceContainer}/>
                 </div>
             }

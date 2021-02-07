@@ -1,0 +1,41 @@
+
+.TopTweetCellContainer {
+    width: 100%;
+    display: flex;
+    padding: 16px 0;
+}
+
+.TopTweetCellProfileImage {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    border-width: 0;
+}
+
+.TopTweetCellContent {
+    width: calc(100% - 50px);
+}
+
+.TopTweetCellUserInfo {
+    margin-left: 16px;
+    margin-top: 4px;
+}
+
+.TopTweetCellFullname {
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.TopTweetCellUsername {
+    color: #383838;
+    font-size: 16px;
+    margin-right: 8px;
+}
+
+.TopTweetCellText {
+    margin-left: 16px;
+    margin-top: 8px;
+    font-size: 18px;
+    color: white;
+}

@@ -22,8 +22,8 @@ import ProfileUpdate from "../profile/ProfileUpdate";
 import {addUsers} from "../../store/slices/usersSlice";
 import UserProfile from "../profile/UserProfile";
 import TweetDetail from "../shares/tweet/TweetDetail";
-import TweetsSideBar from "./sidebar/TweetsSideBar";
-import UsersSideBar from "./sidebar/UsersSideBar";
+import TweetsSideBar from "./sidebar/tweet/TweetsSideBar";
+import UsersSideBar from "./sidebar/user/UsersSideBar";
 import SearchIcon from "../../images/search_icon.png";
 
 const Top: React.FC = () => {
@@ -122,7 +122,7 @@ const Top: React.FC = () => {
                             <Route path="/explore">
                                 <Explore/>
                             </Route>
-                            <Route exact path="/messages">
+                            <Route path="/messages">
                                 <Messages/>
                             </Route>
                             <Route path={`/${currentUser.uid}`}>
@@ -145,10 +145,10 @@ const Top: React.FC = () => {
                                 />
                             </form>
                         </div>
-                        <div className={styles.TopRightSideBarContainer}>
+                        <div className={styles.TopTweetsSideBarContainer}>
                             <TweetsSideBar/>
                         </div>
-                        <div className={styles.TopRightSideBarContainer}>
+                        <div className={styles.TopUsersSideBarContainer}>
                             <UsersSideBar/>
                         </div>
                     </div>

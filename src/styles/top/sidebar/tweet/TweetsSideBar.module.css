@@ -1,0 +1,49 @@
+
+.TweetsSideBarContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 20px;
+    background-color: #191919;
+}
+
+.TweetsSideBarTitle {
+    width: calc(100% - 16px);
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-left: 16px;
+    line-height: 200%;
+    border-bottom: 1px solid #707070;
+}
+
+.TweetsSideBarContent {
+    position: absolute;
+    top: 48px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 96px - 16px);
+}
+
+.TweetsSideBarTweetCell {
+    padding-left: 16px;
+    padding-right: 16px;
+    border-bottom: 1px solid #383838;
+}
+
+.TweetsSideBarShowMore {
+    width: calc(100% - 16px);
+    color: #1DA2F1;
+    text-decoration: none;
+    font-size: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    line-height: 240%;
+    cursor: pointer;
+    padding-left: 16px;
+    border-top: 1px solid #707070;
+}

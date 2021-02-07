@@ -4,10 +4,6 @@ import {Comment} from "../entities/Comment";
 import {FirestoreTimestampToString, readNowTimestamp} from "../../utils/Utils";
 
 
-export const fetchComments = async (tweetId: string) => {
-
-};
-
 export const sendComment = async (user: User,tweetId: string,text: string): Promise<Comment> => {
     try {
         const ref = tweetCommentsRef(tweetId).doc();

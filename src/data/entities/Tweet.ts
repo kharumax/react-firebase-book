@@ -1,4 +1,4 @@
-import firebase from "firebase";
+import firebase from "firebase/app";
 import {FirestoreTimestampToString} from "../../utils/Utils";
 
 export type Tweet = {

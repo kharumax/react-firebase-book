@@ -4,6 +4,8 @@ import tweetsReducer from "./slices/tweetsSlice";
 import profileReducer from "./slices/profileSlice";
 import usersReducer from "./slices/usersSlice";
 import tweetDetailReducer from "./slices/tweetDetailSlice";
+import roomsReducer from "./slices/roomsSlice";
+import messagesReducer from "./slices/messagesSlice";
 
 export const store = configureStore({
     reducer: {
@@ -11,7 +13,9 @@ export const store = configureStore({
         tweets: tweetsReducer,
         profile: profileReducer,
         users: usersReducer,
-        tweetDetail: tweetDetailReducer
+        tweetDetail: tweetDetailReducer,
+        rooms: roomsReducer,
+        messages: messagesReducer,
     },
 });
 

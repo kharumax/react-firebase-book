@@ -108,7 +108,7 @@ const Top: React.FC = () => {
                                 <img src={ExploreSideBarIcon} alt="ExploreIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Explore</p>
                             </NavLink>
-                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} exact to="/messages">
+                            <NavLink className={styles.TopSideBarItem} activeClassName={styles.TopSideBarItemSelected} to="/messages">
                                 <img src={MessageSideBarIcon} alt="MessagesIcon" className={styles.TopSideBarIcon}/>
                                 <p className={styles.TopSideBarTitle}>Messages</p>
                             </NavLink>

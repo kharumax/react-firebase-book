@@ -83,3 +83,8 @@
     cursor: pointer;
     filter: invert(60%) sepia(99%) saturate(3116%) hue-rotate(175deg) brightness(97%) contrast(94%);
 }
+
+.ChatContainerMessageCell {
+    width: 100%;
+    margin: 8px 0;
+}

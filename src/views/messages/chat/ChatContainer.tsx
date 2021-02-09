@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
 import styles from "../../../styles/messages/chat/ChatContainer.module.css";
 import SendIcon from "../../../images/send_icon.png";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import MessageCell from "./MessageCell";
 
 const ChatContainer: React.FC = () => {
 
+    const messagesFeed = [1,2,3,4,5,6,7,8,9,10].map(i => (
+        <div className={styles.ChatContainerMessageCell}>
+            <MessageCell message={i}/>
+        </div>
+    ));
 
     return (
         <div className={styles.ChatContainer}>
@@ -14,9 +19,7 @@ const ChatContainer: React.FC = () => {
             <div className={styles.ChatContent}>
                 <div className={styles.ChatListContainer}>
                     {
-                        new Array(100).fill(null).map(() => (
-                            <div>Hello World</div>
-                        ))
+                        messagesFeed
                     }
                 </div>
                 <div className={styles.ChatFormContainer}>

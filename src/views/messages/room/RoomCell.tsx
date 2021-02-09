@@ -9,8 +9,8 @@ const RoomCell: React.FC = () => {
             <img src={ProfileIcon} alt="Profile" className={styles.RoomCellProfileImage}/>
             <div className={styles.RoomCellContent}>
                 <div className={styles.RoomCellUserInfo}>
-                    <div className={styles.RoomCellFullname}>Peter Packer</div>
-                    <div className={styles.RoomCellUsername}>@spiderman</div>
+                    <div className={styles.RoomCellFullname}>Tony Stark</div>
+                    <div className={styles.RoomCellUsername}>@ironman</div>
                 </div>
                 <div className={styles.RoomCellMessage}>
                     Yes, I wanna eat a something like fried rice...

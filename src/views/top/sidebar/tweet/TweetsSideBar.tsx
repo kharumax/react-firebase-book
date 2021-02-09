@@ -7,13 +7,17 @@ interface PROPS {
     tweets: Tweet[]
 }
 
-const TweetsSideBar: React.FC = () => {
+const TweetsSideBar: React.FC<PROPS> = (props: PROPS) => {
 
-    const tweetsFeed = ["1","2","3"].map(i => (
+    const tweetsFeed = props.tweets.slice(0,3).map(tweet => (
        <div className={styles.TweetsSideBarTweetCell}>
-           <TopTweetCell key={i}/>
+           <TopTweetCell key={tweet.id} tweet={tweet}/>
        </div>
     ));
+
+    const handleShowMore = () => {
+        window.location.href = "/explore";
+    };
 
     return (
         <div className={styles.TweetsSideBarContainer}>
@@ -23,7 +27,7 @@ const TweetsSideBar: React.FC = () => {
             <div className={styles.TweetsSideBarContent}>
                 {tweetsFeed}
             </div>
-            <div className={styles.TweetsSideBarShowMore}>
+            <div className={styles.TweetsSideBarShowMore} onClick={handleShowMore}>
                 Show more
             </div>
         </div>

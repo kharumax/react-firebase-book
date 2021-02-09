@@ -1,0 +1,68 @@
+
+.MessageCellContainer {
+    width: 100%;
+    padding: 4px 0;
+}
+
+.MyMessageCell {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.MyMessageCellContent {
+    margin-right: 8px;
+    width: 60%;
+}
+
+.MyMessageCellText {
+    color: white;
+    padding: 8px 0 8px 12px;
+    font-size: 18px;
+    background-color: #1DA2F1;
+    border-radius: 20px;
+    text-align: left;
+}
+.MyMessageCellTimestampContainer {
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.MessageCellTimestamp {
+    color: #707070;
+}
+
+.PartnerMessageCell {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.PartnerMessageCellProfileImage {
+    margin-left: 8px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+
+.PartnerMessageCellContent {
+    margin-left: 8px;
+    width: 60%;
+}
+
+.PartnerMessageCellText {
+    color: white;
+    padding: 8px 0 8px 12px;
+    font-size: 18px;
+    /*background-color: #1DA2F1;*/
+    background-color: #707070;
+    border-radius: 20px;
+    text-align: left;
+}
+
+.PartnerMessageCellTimestampContainer {
+    margin-top: 4px;
+    display: flex;
+    justify-content: flex-start;
+}

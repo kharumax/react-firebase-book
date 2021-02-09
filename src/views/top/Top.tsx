@@ -130,48 +130,57 @@ const Top: React.FC = () => {
                                 <p className={styles.TopProfileUsername}>@{currentUser.username}</p>
                             </div>
                         </div>
+                    </div>
 
-                    </div>
-                    <div className={styles.TopCenterContainer}>
-                        <Switch>
-                            <Route exact path="/home">
-                                <Home/>
-                            </Route>
-                            <Route path="/explore">
-                                <Explore/>
-                            </Route>
-                            <Route path="/messages">
+                    <Switch>
+                        <Route path="/messages">
+                            <div className={styles.TopCenterRightContainer}>
                                 <Messages/>
-                            </Route>
-                            <Route path={`/${currentUser.uid}`}>
-                                <Profile user={currentUser}/>
-                            </Route>
-                            <Route exact path="/settings/profile">
-                                <ProfileUpdate user={currentUser}/>
-                            </Route>
-                            <Route path="/:username/status/:tweetId" component={TweetDetail} />
-                            <Route path="/:uid" component={UserProfile}/>
-                        </Switch>
-                    </div>
-                    <div className={styles.TopRightContainer}>
-                        <div className={styles.TopSearchContainer}>
-                            <form className={isFocus ? styles.TopSearchFormOnFocus : styles.TopSearchForm}>
-                                <img src={SearchIcon} alt="SearchIcon" className={isFocus ?  styles.TopSearchIconOnFocus : styles.TopSearchIcon}/>
-                                <input type="text" placeholder="Search Twitter" className={styles.TopSearchInput}
-                                       onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)}
-                                       onKeyPress={handleOnKeyPress} value={keyword} onChange={handleChangeKeyword}
-                                />
-                            </form>
-                        </div>
-                        <div className={styles.TopTweetsSideBarContainer}>
-                            <TweetsSideBar key={`tweetsSideBar_${currentUser.uid}`} tweets={tweets}/>
-                        </div>
-                        <div className={styles.TopUsersSideBarContainer}>
-                            <UsersSideBar key={`usersSideBar_${currentUser.uid}`} users={users}
-                                followAction={followAction} unFollowAction={unFollowAction}
-                            />
-                        </div>
-                    </div>
+                            </div>
+                        </Route>
+                        <Route>
+                            <div className={styles.TopCenterContainer}>
+                                <Switch>
+                                    <Route exact path="/home">
+                                        <Home/>
+                                    </Route>
+                                    <Route path="/explore">
+                                        <Explore/>
+                                    </Route>
+                                    {/*<Route path="/messages">*/}
+                                    {/*    <Messages/>*/}
+                                    {/*</Route>*/}
+                                    <Route path={`/${currentUser.uid}`}>
+                                        <Profile user={currentUser}/>
+                                    </Route>
+                                    <Route exact path="/settings/profile">
+                                        <ProfileUpdate user={currentUser}/>
+                                    </Route>
+                                    <Route path="/:username/status/:tweetId" component={TweetDetail} />
+                                    <Route path="/:uid" component={UserProfile}/>
+                                </Switch>
+                            </div>
+                            <div className={styles.TopRightContainer}>
+                                <div className={styles.TopSearchContainer}>
+                                    <form className={isFocus ? styles.TopSearchFormOnFocus : styles.TopSearchForm}>
+                                        <img src={SearchIcon} alt="SearchIcon" className={isFocus ?  styles.TopSearchIconOnFocus : styles.TopSearchIcon}/>
+                                        <input type="text" placeholder="Search Twitter" className={styles.TopSearchInput}
+                                               onFocus={() => setIsFocus(true)} onBlur={() => setIsFocus(false)}
+                                               onKeyPress={handleOnKeyPress} value={keyword} onChange={handleChangeKeyword}
+                                        />
+                                    </form>
+                                </div>
+                                <div className={styles.TopTweetsSideBarContainer}>
+                                    <TweetsSideBar key={`tweetsSideBar_${currentUser.uid}`} tweets={tweets}/>
+                                </div>
+                                <div className={styles.TopUsersSideBarContainer}>
+                                    <UsersSideBar key={`usersSideBar_${currentUser.uid}`} users={users}
+                                        followAction={followAction} unFollowAction={unFollowAction}
+                                    />
+                                </div>
+                            </div>
+                        </Route>
+                    </Switch>
                     <div className={styles.TopRightSpaceContainer}/>
                 </div>
             }

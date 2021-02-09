@@ -2,6 +2,7 @@
 .TopUserCellContainer {
     width: 100%;
     display: flex;
+    cursor: pointer;
 }
 
 .TopUserCellProfileImage {

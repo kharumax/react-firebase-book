@@ -8,7 +8,7 @@ import ProfileSideBarIcon from "../../images/profile.png";
 import ProfileIcon from "../../images/ironman.jpg";
 import {useDispatch, useSelector} from "react-redux";
 import {selectUser,fetchCurrentUser} from "../../store/slices/userSlice";
-import {fetchUser, fetchUsers} from "../../data/repository/userRepository";
+import {fetchUser, fetchUsers, sendFollowUser, sendUnFollowUser} from "../../data/repository/userRepository";
 import LoadingPage from "../LoadingPage";
 import { Switch,Route,NavLink,useLocation } from "react-router-dom";
 import Home from "../home/Home";
@@ -17,9 +17,9 @@ import Messages from "../messages/Messages";
 import Profile from "../profile/Profile";
 import {getTitle} from "../../utils/Utils";
 import {fetchTweets} from "../../data/repository/tweetRepository";
-import {addTweets} from "../../store/slices/tweetsSlice";
+import {addTweets, selectTweets} from "../../store/slices/tweetsSlice";
 import ProfileUpdate from "../profile/ProfileUpdate";
-import {addUsers} from "../../store/slices/usersSlice";
+import {addUsers, followUser, selectUsers, unFollowUser} from "../../store/slices/usersSlice";
 import UserProfile from "../profile/UserProfile";
 import TweetDetail from "../shares/tweet/TweetDetail";
 import TweetsSideBar from "./sidebar/tweet/TweetsSideBar";
@@ -29,6 +29,8 @@ import SearchIcon from "../../images/search_icon.png";
 const Top: React.FC = () => {
 
     const currentUser = useSelector(selectUser);
+    const tweets = useSelector(selectTweets);
+    const users = useSelector(selectUsers);
     const dispatch = useDispatch();
     const [isLoading,setIsLoading] = useState<boolean>(true);
     const [isFocus,setIsFocus] = useState<boolean>(false);
@@ -68,6 +70,22 @@ const Top: React.FC = () => {
                 window.location.href = `/explore/search?q=${keyword}`
             }
         }
+    };
+
+    const followAction = (uid: string) => {
+        sendFollowUser(currentUser.uid,uid).then(() => {
+            dispatch(followUser(uid));
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        });
+    };
+
+    const unFollowAction = (uid: string) => {
+        sendUnFollowUser(currentUser.uid,uid).then(() => {
+            dispatch(unFollowUser(uid));
+        }).catch(e => {
+            console.log(`Error: ${e}`)
+        });
     };
 
     return (
@@ -146,10 +164,12 @@ const Top: React.FC = () => {
                             </form>
                         </div>
                         <div className={styles.TopTweetsSideBarContainer}>
-                            <TweetsSideBar/>
+                            <TweetsSideBar key={`tweetsSideBar_${currentUser.uid}`} tweets={tweets}/>
                         </div>
                         <div className={styles.TopUsersSideBarContainer}>
-                            <UsersSideBar/>
+                            <UsersSideBar key={`usersSideBar_${currentUser.uid}`} users={users}
+                                followAction={followAction} unFollowAction={unFollowAction}
+                            />
                         </div>
                     </div>
                     <div className={styles.TopRightSpaceContainer}/>

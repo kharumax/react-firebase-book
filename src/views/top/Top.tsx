@@ -117,9 +117,6 @@ const Top: React.FC = () => {
                                 <p className={styles.TopSideBarTitle}>Profile</p>
                             </NavLink>
                         </div>
-                        {/*<button className={styles.TopLogoutButton} onClick={handleLogout}>*/}
-                        {/*    ログアウト*/}
-                        {/*</button>*/}
                         <button className={styles.TopPostTweetButton}>
                             Tweet
                         </button>

@@ -4,7 +4,12 @@ import MessageIcon from "../../../images/mail_icon.png";
 import SearchIcon from "../../../images/search_icon.png";
 import RoomCell from "./RoomCell";
 
-const RoomContainer: React.FC = () => {
+interface PROPS {
+    // rooms
+    showNewRoomAction: () => void;
+}
+
+const RoomContainer: React.FC<PROPS> = (props: PROPS) => {
 
     const [isFocus,setIsFocus] = useState<boolean>(false);
     const [keyword,setKeyword] = useState<string>("");
@@ -22,6 +27,11 @@ const RoomContainer: React.FC = () => {
         }
     };
 
+    const showNewRoomAction = (e: React.MouseEvent<HTMLImageElement>) => {
+        e.stopPropagation();
+        props.showNewRoomAction();
+    };
+
     const roomsFeed = ["1","2","3","4","5"].map(i => (
        <div className={styles.RoomContainerRoomCell} key={i}>
            <RoomCell key={i}/>
@@ -32,7 +42,7 @@ const RoomContainer: React.FC = () => {
         <div className={styles.RoomContainer}>
             <div className={styles.RoomContainerHeader}>
                 <div className={styles.RoomContainerTitle}>Messages</div>
-                <img src={MessageIcon} alt="message" className={styles.RoomContainerMessageIcon}/>
+                <img src={MessageIcon} alt="message" className={styles.RoomContainerMessageIcon} onClick={showNewRoomAction}/>
             </div>
             <div className={styles.RoomContainerSearchContainer}>
                 <form className={isFocus ? styles.RoomContainerSearchFormOnFocus : styles.RoomContainerSearchForm}>

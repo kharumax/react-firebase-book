@@ -93,6 +93,7 @@ body {
 }
 .AuthTopBottomContainerList p {
     height: 50%;
+    font-size: 14px;
     margin-right: 10px;
 }
 

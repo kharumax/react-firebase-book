@@ -14,12 +14,14 @@ export type Message = {
 
 export const buildMessage = (messageData: firebase.firestore.DocumentData,currentUid: string): Message => {
 
+    const dateData = messageData.timestamp == null ? new Date() : messageData.timestamp.toDate();
+
     return {
         id: messageData.id,
         uid: messageData.uid,
         profileImageUrl: messageData.profileImageUrl,
         message: messageData.message,
-        timestamp: FirestoreTimestampToString(messageData.timestamp.toDate()),
+        timestamp: FirestoreTimestampToString(dateData),
         isFromCurrentUser: messageData.uid == currentUid,
     }
 

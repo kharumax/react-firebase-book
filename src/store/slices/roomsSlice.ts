@@ -10,7 +10,7 @@ const initialRoomsState: Room[] = [
     }
 ];
 
-interface IRoomUpdate {
+export interface IRoomUpdate {
     roomId: string;
     message: string;
     timestamp: any;
@@ -32,13 +32,16 @@ export const roomsSlice = createSlice({
             state.rooms = newRooms;
         },
         updateRoom: (state,action: { payload: IRoomUpdate }) => {
-            state.rooms = state.rooms.map(room => {
-                if (room.id == action.payload.roomId) {
-                    room.currentMessage = action.payload.message;
-                    room.currentTimestamp = action.payload.timestamp;
-                }
-                return room
-            })
+            const payload = action.payload;
+            const updateRoom = state.rooms.find(room => room.id == payload.roomId);
+            if (updateRoom != undefined) {
+                updateRoom.currentTimestamp = payload.timestamp;
+                updateRoom.currentMessage = payload.message;
+                const newRooms = state.rooms.filter(room => room.id != payload.roomId);
+                newRooms.unshift(updateRoom);
+                state.rooms = newRooms
+            }
+
         },
         searchRooms: (state,action) => {
             state.rooms = state.rooms.filter(room => (

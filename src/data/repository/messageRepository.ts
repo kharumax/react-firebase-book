@@ -30,7 +30,7 @@ export const fetchRooms = async (currentUid: string): Promise<Room[]> => {
             return Promise.resolve(rooms);
         }
         const roomIds = userRoomsDocs.docs.map(doc => doc.id);
-        const roomsDocs = await roomsRef.where("id","in",roomIds).get();
+        const roomsDocs = await roomsRef.where("id","in",roomIds).orderBy("currentTimestamp","desc").get();
         rooms = roomsDocs.docs.map(doc => {
             return buildRoom(doc.data(),currentUid)
         });

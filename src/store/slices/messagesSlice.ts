@@ -4,7 +4,7 @@ import {FirestoreTimestampToString} from "../../utils/Utils";
 import {RootState} from "../store";
 
 const initialMessagesState: Message[] =[
-    {id: "",uid: "",profileImageUrl: "",message: "",timestamp: FirestoreTimestampToString(new Date()),isFromCurrentUser: false}
+    // {id: "",uid: "",profileImageUrl: "",message: "",timestamp: FirestoreTimestampToString(new Date()),isFromCurrentUser: false}
 ];
 
 
@@ -22,10 +22,13 @@ export const messagesSlice = createSlice({
             newMessages.unshift(action.payload);
             state.messages = newMessages;
         },
+        clearMessages: (state) => {
+            state.messages = initialMessagesState;
+        },
     }
 });
 
-export const { addMessages,addNewMessage } = messagesSlice.actions;
+export const { addMessages,addNewMessage,clearMessages } = messagesSlice.actions;
 
 export const selectMessages = (state: RootState) => state.messages.messages;
 

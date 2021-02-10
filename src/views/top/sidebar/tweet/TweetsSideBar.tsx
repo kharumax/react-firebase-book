@@ -10,7 +10,7 @@ interface PROPS {
 const TweetsSideBar: React.FC<PROPS> = (props: PROPS) => {
 
     const tweetsFeed = props.tweets.slice(0,3).map(tweet => (
-       <div className={styles.TweetsSideBarTweetCell}>
+       <div className={styles.TweetsSideBarTweetCell} key={tweet.id}>
            <TopTweetCell key={tweet.id} tweet={tweet}/>
        </div>
     ));

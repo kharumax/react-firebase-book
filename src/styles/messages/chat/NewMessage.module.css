@@ -96,3 +96,11 @@
     width: 100%;
     border-bottom: 1px solid #383838;
 }
+
+.NewMessageSelectedUserCell {
+    cursor: pointer;
+    width: 100%;
+    border-bottom: 1px solid #383838;
+    background-color: #36536C;
+}
+

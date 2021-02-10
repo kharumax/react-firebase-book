@@ -5,19 +5,19 @@
 }
 
 .MyMessageCell {
-    width: 100%;
+    /*width: 100%;*/
     display: flex;
     justify-content: flex-end;
 }
 
 .MyMessageCellContent {
     margin-right: 8px;
-    width: 60%;
+    /*width: 60%;*/
 }
 
 .MyMessageCellText {
     color: white;
-    padding: 8px 0 8px 12px;
+    padding: 8px 12px;
     font-size: 18px;
     background-color: #1DA2F1;
     border-radius: 20px;
@@ -34,7 +34,7 @@
 }
 
 .PartnerMessageCell {
-    width: 100%;
+    /*width: 100%;*/
     display: flex;
     justify-content: flex-start;
 }
@@ -48,12 +48,12 @@
 
 .PartnerMessageCellContent {
     margin-left: 8px;
-    width: 60%;
+    /*width: 60%;*/
 }
 
 .PartnerMessageCellText {
     color: white;
-    padding: 8px 0 8px 12px;
+    padding: 8px 12px;
     font-size: 18px;
     /*background-color: #1DA2F1;*/
     background-color: #707070;

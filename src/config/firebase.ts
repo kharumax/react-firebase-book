@@ -57,3 +57,16 @@ export const tweetLikedUserRef = (tweetId: string) => {
 export const tweetCommentedUserRef = (tweetId: string) => {
     return tweetRef(tweetId).collection("comments")
 };
+
+export const roomsRef = db.collection("rooms");
+export const roomRef = (roomId: string) => {
+    return roomsRef.doc(roomId)
+};
+
+export const userRoomsRef = (uid: string) => {
+    return userRef(uid).collection("rooms")
+};
+
+export const messagesRef = (roomId: string) => {
+    return roomRef(roomId).collection("messages")
+};

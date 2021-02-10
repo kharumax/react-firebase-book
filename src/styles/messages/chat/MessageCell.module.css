@@ -12,7 +12,7 @@
 
 .MyMessageCellContent {
     margin-right: 8px;
-    width: 60%;
+    /*width: 60%;*/
 }
 
 .MyMessageCellText {
@@ -48,7 +48,7 @@
 
 .PartnerMessageCellContent {
     margin-left: 8px;
-    width: 60%;
+    /*width: 60%;*/
 }
 
 .PartnerMessageCellText {

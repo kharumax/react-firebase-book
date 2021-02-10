@@ -7,6 +7,7 @@ export type Room = {
     // Partner Info
     partnerUid: string;
     partnerUsername: string;
+    partnerFullrname: string;
     partnerProfileImageUrl: string;
     // Rooms Info
     currentMessage: string;
@@ -20,8 +21,9 @@ export const buildRoom = (roomData: firebase.firestore.DocumentData,currentUid: 
         // Partner Info
         partnerUid: isCurrentUser ? roomData.senderUid : roomData.receiverUid,
         partnerUsername: isCurrentUser ? roomData.senderUsername : roomData.receiverUsername,
+        partnerFullrname : isCurrentUser ? roomData.senderFullname : roomData.receiverFullname,
         partnerProfileImageUrl: isCurrentUser ? roomData.senderProfileImageUrl : roomData.receiverProfileImageUrl,
         currentMessage: roomData.currentMessage,
-        currentTimestamp: roomData.currentTimestamp
+        currentTimestamp: FirestoreTimestampToString(roomData.currentTimestamp.toDate()),
     };
 };

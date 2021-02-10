@@ -3,10 +3,14 @@ import styles from "../../../styles/messages/room/RoomContainer.module.css";
 import MessageIcon from "../../../images/mail_icon.png";
 import SearchIcon from "../../../images/search_icon.png";
 import RoomCell from "./RoomCell";
+import {Room} from "../../../data/entities/Room";
 
 interface PROPS {
-    // rooms
+    rooms: Room[];
     showNewRoomAction: () => void;
+    searchRooms: (keyword: string) => void;
+    selectRoom: (room: Room) => void;
+    selectedRoomId?: string | null;
 }
 
 const RoomContainer: React.FC<PROPS> = (props: PROPS) => {
@@ -15,26 +19,35 @@ const RoomContainer: React.FC<PROPS> = (props: PROPS) => {
     const [keyword,setKeyword] = useState<string>("");
 
     const handleChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setKeyword(e.target.value);
+        const keyword = e.target.value;
+        setKeyword(keyword);
+        props.searchRooms(keyword);
     };
 
     const handleOnKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key == "Enter") {
             e.preventDefault();
-            if (keyword.length != 0) {
-
-            }
         }
     };
 
-    const showNewRoomAction = (e: React.MouseEvent<HTMLImageElement>) => {
+    const showNewRoomActionByImage = (e: React.MouseEvent<HTMLImageElement>) => {
         e.stopPropagation();
         props.showNewRoomAction();
     };
 
-    const roomsFeed = ["1","2","3","4","5"].map(i => (
-       <div className={styles.RoomContainerRoomCell} key={i}>
-           <RoomCell key={i}/>
+    const showNewRoomActionByButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        props.showNewRoomAction();
+    };
+
+    const selectRoom = (room: Room) => {
+        props.selectRoom(room)
+    };
+
+    const roomsFeed = props.rooms.map(room => (
+       <div className={props.selectedRoomId == room.id ? styles.RoomContainerSelectedRoomCell : styles.RoomContainerRoomCell} key={room.id}>
+           <RoomCell key={room.id} room={room} selectRoom={selectRoom}/>
        </div>
     ));
 
@@ -42,7 +55,7 @@ const RoomContainer: React.FC<PROPS> = (props: PROPS) => {
         <div className={styles.RoomContainer}>
             <div className={styles.RoomContainerHeader}>
                 <div className={styles.RoomContainerTitle}>Messages</div>
-                <img src={MessageIcon} alt="message" className={styles.RoomContainerMessageIcon} onClick={showNewRoomAction}/>
+                <img src={MessageIcon} alt="message" className={styles.RoomContainerMessageIcon} onClick={showNewRoomActionByImage}/>
             </div>
             <div className={styles.RoomContainerSearchContainer}>
                 <form className={isFocus ? styles.RoomContainerSearchFormOnFocus : styles.RoomContainerSearchForm}>
@@ -54,18 +67,22 @@ const RoomContainer: React.FC<PROPS> = (props: PROPS) => {
                 </form>
             </div>
             <div className={styles.RoomContainerRoomList}>
-                {/*<div className={styles.RoomContainerNoRoomsContainer}>*/}
-                {/*    <div className={styles.RoomContainerNoRoomsTitle}>Send a message, get a message</div>*/}
-                {/*    <div className={styles.RoomContainerNoRoomsMessage}>*/}
-                {/*        Direct Messages are private conversations <br/>*/}
-                {/*        between you and other people on Twitter. Share <br/>*/}
-                {/*        Tweets, media, and more!*/}
-                {/*    </div>*/}
-                {/*    <button className={styles.RoomContainerNoRoomsButton}>*/}
-                {/*        Start a conversation*/}
-                {/*    </button>*/}
-                {/*</div>*/}
-                {roomsFeed}
+                {
+                    props.rooms.length == 0 ?
+                        <div className={styles.RoomContainerNoRoomsContainer}>
+                            <div className={styles.RoomContainerNoRoomsTitle}>Send a message, get a message</div>
+                            <div className={styles.RoomContainerNoRoomsMessage}>
+                                Direct Messages are private conversations <br/>
+                                between you and other people on Twitter. Share <br/>
+                                Tweets, media, and more!
+                            </div>
+                            <button className={styles.RoomContainerNoRoomsButton} onClick={showNewRoomActionByButton}>
+                                Start a conversation
+                            </button>
+                        </div>
+                        :
+                        roomsFeed
+                }
             </div>
         </div>
     );

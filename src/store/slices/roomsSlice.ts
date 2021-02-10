@@ -5,7 +5,7 @@ import {RootState} from "../store";
 
 const initialRoomsState: Room[] = [
     {
-        id: "", partnerUid: "",partnerUsername: "",partnerProfileImageUrl: "",
+        id: "", partnerUid: "",partnerUsername: "",partnerProfileImageUrl: "",partnerFullrname: "",
         currentMessage: "",currentTimestamp: FirestoreTimestampToString(new Date())
     }
 ];
@@ -39,12 +39,17 @@ export const roomsSlice = createSlice({
                 }
                 return room
             })
-        }
+        },
+        searchRooms: (state,action) => {
+            state.rooms = state.rooms.filter(room => (
+                room.partnerFullrname.toLowerCase().includes(action.payload) || room.partnerUsername.toLowerCase().includes(action.payload)
+            ))
+        },
     }
 });
 
 
-export const { addNewRoom,addRooms,updateRoom } = roomsSlice.actions;
+export const { addNewRoom,addRooms,updateRoom,searchRooms } = roomsSlice.actions;
 
 export const selectRooms = (state: RootState) => state.rooms.rooms;
 

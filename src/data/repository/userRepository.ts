@@ -83,9 +83,7 @@ export const fetchUsersByOption = async (ref: firebase.firestore.Query<firebase.
             }
         });
         await Promise.all(usersPromises);
-
         return Promise.resolve(users)
-
     } catch (e) {
         return Promise.reject(e)
     }

@@ -1,11 +1,14 @@
 
-# React-Firebase-Sns
+# Twitter Clone
 
-## Firebaseを利用したSNSアプリ
+## Firebaseを利用したTwitterのクローンサイト
 
-## 使用技術
+### url(https://swiftuitwitterclone.web.app/)
+
+### 使用技術
 1. Firebase  
 2. Redux-Toolkit
 3. Hooks
+
    
 
